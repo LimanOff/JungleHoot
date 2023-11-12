@@ -1,13 +1,11 @@
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class WeaponHandler : MonoBehaviour
 {
-    [Header("Debug Panel")]
-    [SerializeField] private Weapon _currentWeapon;
-    [SerializeField] private GameObject _currentWeaponGO;
+    private Weapon _currentWeapon;
+    private GameObject _currentWeaponGO;
 
-    [SerializeField] private GameObject WeaponHolder;
+    private GameObject _weaponHolder;
     
     [SerializeField] private KeyCode InteractKey;
     [SerializeField] private KeyCode DropWeaponKey;
@@ -35,22 +33,30 @@ public class WeaponHandler : MonoBehaviour
         }
     }
 
+    private void Awake()
+    {
+        foreach(Transform child in transform)
+        {
+            if (child.CompareTag("WeaponHolder"))
+            {
+                _weaponHolder = child.gameObject;
+            }
+        }
+    }
+
     private void PickupWeapon(GameObject weapon)
     {
         Rigidbody2D rb2d = weapon.GetComponent<Rigidbody2D>();
 
-        Destroy(rb2d);
+        rb2d.isKinematic = true;
 
-        if (weapon.GetComponent<Rigidbody2D>().IsDestroyed())
-        {
-            GameObject weaponGO = Instantiate(weapon, WeaponHolder.transform.position, Quaternion.identity);
-            weaponGO.transform.SetParent(WeaponHolder.transform);
+        GameObject weaponGO = Instantiate(weapon, _weaponHolder.transform.position, Quaternion.identity);
+        weaponGO.transform.SetParent(_weaponHolder.transform);
 
-            Destroy(weapon);
+        _currentWeapon = weaponGO.GetComponent<Weapon>();
+        _currentWeaponGO = weaponGO;
 
-            _currentWeapon = weaponGO.GetComponent<Weapon>();
-            _currentWeaponGO = weaponGO;
-        }
+        Destroy(weapon,0);
     }
 
     private void DropWeapon()
@@ -59,7 +65,7 @@ public class WeaponHandler : MonoBehaviour
         
         _currentWeapon = null;
 
-        _currentWeaponGO.AddComponent<Rigidbody2D>();
+        _currentWeaponGO.GetComponent<Rigidbody2D>().isKinematic = false;
 
         _currentWeaponGO = null;
     }
