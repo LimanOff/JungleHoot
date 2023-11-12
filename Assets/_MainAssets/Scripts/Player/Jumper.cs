@@ -5,29 +5,21 @@ public class Jumper : MonoBehaviour
 {
     public KeyCode JumpKey;
 
-    [Range(8f,9f)]
-    public float JumpForce;
+    public delegate void PlayerJumpedHandler();
+    public event PlayerJumpedHandler PlayerJumped;
 
-    private Rigidbody2D _rigidbody;
-
-    [Header("Debug")]
-    [SerializeField] private bool _isGrounded;
-    [SerializeField] private LayerMask jumpableObjectsMask;
-    [SerializeField] private Transform _rayOrigin;
+    [SerializeField] private LayerMask JumpableObjects;
+    private Rigidbody2D _rigidbody2D;
+    public float JumpHeight;
 
     private void Start()
     {
-        _rigidbody = GetComponent<Rigidbody2D>();
-    }
-
-    private void FixedUpdate()
-    {
-        _isGrounded = IsOnTheGroundOrNot();
+        _rigidbody2D = GetComponent<Rigidbody2D>();
     }
 
     private void Update()
     {
-        if(Input.GetKeyDown(JumpKey) && _isGrounded)
+        if(Input.GetKeyDown(JumpKey) && CalcCanJump())
         {
             Jump();
         }
@@ -35,14 +27,14 @@ public class Jumper : MonoBehaviour
 
     private void Jump()
     {
-        _rigidbody.AddForce(Vector2.up * JumpForce,ForceMode2D.Impulse);
+        float jumpForce = (Mathf.Sqrt(JumpHeight * (Physics2D.gravity.y * _rigidbody2D.gravityScale) * -2)) * _rigidbody2D.mass;
+        _rigidbody2D.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+        PlayerJumped?.Invoke();
     }
 
-    private bool IsOnTheGroundOrNot()
+    private bool CalcCanJump()
     {
-        float distanceToCheck = .3f;
-
-        if(Physics2D.Raycast(_rayOrigin.position, Vector2.down, distanceToCheck, jumpableObjectsMask))
+        if (Physics2D.Raycast(transform.position, Vector2.down, .7f, JumpableObjects))
         {
             return true;
         }

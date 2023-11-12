@@ -11,9 +11,9 @@ TagManager:
   - Jumpable
   - Water
   - UI
-  - Player
   - 
-  - 
+  - NotJumpable
+  - Hitten
   - 
   - 
   - 
