@@ -16,6 +16,8 @@ public class Mover : MonoBehaviour
     [SerializeField] private float _horizontalMovement;
     [SerializeField] private Vector2 _movementDirection;
 
+    [SerializeField] private bool _isLookAtRight;
+
     private void Start()
     {
         _rigidbody2D = GetComponent<Rigidbody2D>();
@@ -26,11 +28,13 @@ public class Mover : MonoBehaviour
         if(Input.GetKey(RightKey))
         {
             _horizontalMovement = 1;
+            Flip();
         }
 
         if (Input.GetKey(LeftKey))
         {
             _horizontalMovement = -1;
+            Flip();
         }
 
         if (Input.GetKeyUp(RightKey) || Input.GetKeyUp(LeftKey))
@@ -43,5 +47,19 @@ public class Mover : MonoBehaviour
     {
         _movementDirection = new Vector2(_horizontalMovement * Speed, _rigidbody2D.velocity.y);
         _rigidbody2D.velocity = _movementDirection;
+    }
+
+    private void Flip()
+    {
+        if (_rigidbody2D.velocity.x > 0)
+        {
+            _isLookAtRight = true;
+            transform.localScale = Vector3.one;
+        }
+        else if(_rigidbody2D.velocity.x < 0)
+        {
+            _isLookAtRight = false;
+            transform.localScale = Vector3.one * -1;
+        }
     }
 }
