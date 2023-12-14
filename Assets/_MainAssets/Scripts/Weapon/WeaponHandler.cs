@@ -46,17 +46,18 @@ public class WeaponHandler : MonoBehaviour
 
     private void PickupWeapon(GameObject weapon)
     {
-        Rigidbody2D rb2d = weapon.GetComponent<Rigidbody2D>();
+        Rigidbody2D weaponRB2D = weapon.GetComponent<Rigidbody2D>();
+        BoxCollider2D weaponBoxCollider2D = weapon.GetComponent<BoxCollider2D>();
 
-        rb2d.isKinematic = true;
+        weaponRB2D.simulated = false;
+        weaponBoxCollider2D.enabled = false;
 
-        GameObject weaponGO = Instantiate(weapon, _weaponHolder.transform.position, Quaternion.identity);
-        weaponGO.transform.SetParent(_weaponHolder.transform);
+        weapon.transform.SetParent(_weaponHolder.transform);
+        weapon.transform.localPosition = Vector3.zero;
+        weapon.transform.rotation = Quaternion.identity;
 
-        _currentWeapon = weaponGO.GetComponent<Weapon>();
-        _currentWeaponGO = weaponGO;
-
-        Destroy(weapon,0);
+        _currentWeapon = weapon.GetComponent<Weapon>();
+        _currentWeaponGO = weapon;
     }
 
     private void DropWeapon()
@@ -65,7 +66,8 @@ public class WeaponHandler : MonoBehaviour
         
         _currentWeapon = null;
 
-        _currentWeaponGO.GetComponent<Rigidbody2D>().isKinematic = false;
+        _currentWeaponGO.GetComponent<Rigidbody2D>().simulated = true;
+        _currentWeaponGO.GetComponent<BoxCollider2D>().enabled = true;
 
         _currentWeaponGO = null;
     }
