@@ -1,11 +1,17 @@
+using System;
 using UnityEngine;
 
 public class WeaponHandler : MonoBehaviour
 {
+    public static event Action OnPickUpWeapon;
+    public static event Action OnDropWeapon;
+
     private Weapon _currentWeapon;
     private GameObject _currentWeaponGO;
 
     private GameObject _weaponHolder;
+
+    [SerializeField] private GameObject _weaponFreeParent;
     
     [SerializeField] private KeyCode InteractKey;
     [SerializeField] private KeyCode DropWeaponKey;
@@ -61,11 +67,12 @@ public class WeaponHandler : MonoBehaviour
         _currentWeapon = weapon.GetComponent<Weapon>();
         _currentWeaponGO = weapon;
 
+        OnPickUpWeapon?.Invoke();
     }
 
     private void DropWeapon()
     {
-        _currentWeaponGO.transform.SetParent(null);
+        _currentWeaponGO.transform.SetParent(_weaponFreeParent.transform);
         
         _currentWeapon = null;
 
@@ -73,6 +80,7 @@ public class WeaponHandler : MonoBehaviour
         _currentWeaponGO.GetComponent<BoxCollider2D>().enabled = true;
 
         _currentWeaponGO = null;
+        OnDropWeapon?.Invoke();
     }
 
     private void Update()
