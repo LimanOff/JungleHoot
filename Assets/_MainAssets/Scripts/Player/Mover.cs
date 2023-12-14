@@ -14,7 +14,6 @@ public class Mover : MonoBehaviour
 
     private float _horizontalMovement;
     private Vector2 _movementDirection;
-    private bool _isLookAtRight;
 
     private void Start()
     {
@@ -51,12 +50,10 @@ public class Mover : MonoBehaviour
     {
         if (_rigidbody2D.velocity.x > 0)
         {
-            _isLookAtRight = true;
             transform.localScale = new Vector3(1, 1, 1);
         }
         else if(_rigidbody2D.velocity.x < 0)
         {
-            _isLookAtRight = false;
             transform.localScale = new Vector3(1 * -1, 1, 1 * -1);
         }
     }
