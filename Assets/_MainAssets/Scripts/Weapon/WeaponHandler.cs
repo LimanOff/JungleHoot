@@ -53,11 +53,14 @@ public class WeaponHandler : MonoBehaviour
         weaponBoxCollider2D.enabled = false;
 
         weapon.transform.SetParent(_weaponHolder.transform);
+
         weapon.transform.localPosition = Vector3.zero;
         weapon.transform.rotation = Quaternion.identity;
+        weapon.transform.localScale = Vector3.one;
 
         _currentWeapon = weapon.GetComponent<Weapon>();
         _currentWeaponGO = weapon;
+
     }
 
     private void DropWeapon()
