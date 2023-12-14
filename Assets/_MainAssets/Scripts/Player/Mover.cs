@@ -12,11 +12,9 @@ public class Mover : MonoBehaviour
     [Header("Characteristics")]
     [Range(8f,12f)] public int Speed;
 
-    [Header("Debug")]
-    [SerializeField] private float _horizontalMovement;
-    [SerializeField] private Vector2 _movementDirection;
-
-    [SerializeField] private bool _isLookAtRight;
+    private float _horizontalMovement;
+    private Vector2 _movementDirection;
+    private bool _isLookAtRight;
 
     private void Start()
     {
@@ -54,12 +52,12 @@ public class Mover : MonoBehaviour
         if (_rigidbody2D.velocity.x > 0)
         {
             _isLookAtRight = true;
-            transform.localScale = Vector3.one;
+            transform.localScale = new Vector3(1, 1, 1);
         }
         else if(_rigidbody2D.velocity.x < 0)
         {
             _isLookAtRight = false;
-            transform.localScale = Vector3.one * -1;
+            transform.localScale = new Vector3(1 * -1, 1, 1 * -1);
         }
     }
 }
