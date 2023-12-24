@@ -52,22 +52,25 @@ public class WeaponHandler : MonoBehaviour
 
     private void PickupWeapon(GameObject weapon)
     {
-        Rigidbody2D weaponRB2D = weapon.GetComponent<Rigidbody2D>();
-        BoxCollider2D weaponBoxCollider2D = weapon.GetComponent<BoxCollider2D>();
+        if (_currentWeapon == null)
+        {
+            Rigidbody2D weaponRB2D = weapon.GetComponent<Rigidbody2D>();
+            BoxCollider2D weaponBoxCollider2D = weapon.GetComponent<BoxCollider2D>();
 
-        weaponRB2D.simulated = false;
-        weaponBoxCollider2D.enabled = false;
+            weaponRB2D.simulated = false;
+            weaponBoxCollider2D.enabled = false;
 
-        weapon.transform.SetParent(_weaponHolder.transform);
+            weapon.transform.SetParent(_weaponHolder.transform);
 
-        weapon.transform.localPosition = Vector3.zero;
-        weapon.transform.rotation = Quaternion.identity;
-        weapon.transform.localScale = Vector3.one;
+            weapon.transform.localPosition = Vector3.zero;
+            weapon.transform.rotation = Quaternion.identity;
+            weapon.transform.localScale = Vector3.one;
 
-        _currentWeapon = weapon.GetComponent<Weapon>();
-        _currentWeaponGO = weapon;
+            _currentWeapon = weapon.GetComponent<Weapon>();
+            _currentWeaponGO = weapon;
 
-        OnPickUpWeapon?.Invoke();
+            OnPickUpWeapon?.Invoke();
+        }
     }
 
     private void DropWeapon()
