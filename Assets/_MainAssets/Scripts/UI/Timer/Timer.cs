@@ -6,39 +6,33 @@ public class Timer : MonoBehaviour
 {
     public static Action TimeUp;
 
-    private bool _canCount;
+    [Range(30f,180f), Tooltip("Время раунда в секундах (от 30 сек до 3 мин)")]
+    public float StartTimeInSeconds;
 
-    private DateTime _time;
-    public DateTime Time
-    {
-        get => _time;
-        private set
-        {
-            if(value.ToString("mm:ss") == "59:59")
-            {
-                TimeUp?.Invoke();
-                _canCount = false;
-            }
-            else
-            {
-                _time = value;
-            }
-        }
-    }
+    public float CurrentTimeInSeconds { get; private set; }
+
+    public Coroutine Counting;
 
     public void Initialize()
     {
-        Time = new DateTime(2000, 11, 11, 1, 00, 20);
-        _canCount = true;
+        CurrentTimeInSeconds = StartTimeInSeconds;
+        Counting = StartCoroutine(Count());
+
+        TimeUp += delegate { StopCoroutine(Counting); };
     }
 
-    private IEnumerator Start()
+    private void OnDisable()
     {
-        while(_canCount)
-        {
-            Time = Time.AddSeconds(-1);
+        TimeUp -= delegate { StopCoroutine(Counting); };
+    }
 
+    private IEnumerator Count()
+    {
+        while (CurrentTimeInSeconds != 0)
+        {
+            CurrentTimeInSeconds--;
             yield return new WaitForSeconds(1f);
         }
+        TimeUp?.Invoke();
     }
 }

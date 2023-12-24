@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 using Zenject;
@@ -15,6 +16,8 @@ public class TimerUI : MonoBehaviour
 
     private void Update()
     {
-        _timerText.text = _timer.Time.ToString("mm:ss");
+        float minutes = Mathf.FloorToInt(_timer.CurrentTimeInSeconds / 60);
+        float seconds = Mathf.FloorToInt(_timer.CurrentTimeInSeconds % 60);
+        _timerText.text = String.Format("{0:00}:{1:00}", minutes, seconds);
     }
 }
