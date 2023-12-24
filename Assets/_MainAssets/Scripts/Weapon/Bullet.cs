@@ -6,6 +6,8 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
     public float BulletSpeed;
+    public int Damage;
+
     private Rigidbody2D _rigidBody2d;
 
     private void Awake()
@@ -19,6 +21,13 @@ public class Bullet : MonoBehaviour
 
         if (hit2D.collider != null)
         {
+            var hittenGO = hit2D.collider.gameObject;
+
+            if (hittenGO.tag == "Player")
+            {
+                hittenGO.GetComponent<HealthSystem>().TakeDamage(Damage);
+            }
+
             BlowUp();
         }
 

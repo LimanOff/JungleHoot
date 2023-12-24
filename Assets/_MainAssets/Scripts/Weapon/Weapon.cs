@@ -7,7 +7,6 @@ public class Weapon : MonoBehaviour
     public event Action NoMoreBullets;
 
     public string Name;
-    public int Damage;
 
     public int AmountOfBullets;
     [field: SerializeField] public int CurrentAmountOfBullets { get; private set; }
