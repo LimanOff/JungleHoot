@@ -25,13 +25,13 @@ public class Mover : MonoBehaviour
         if(Input.GetKey(RightKey))
         {
             _horizontalMovement = 1;
-            Flip();
+            Flip(_horizontalMovement);
         }
 
         if (Input.GetKey(LeftKey))
         {
             _horizontalMovement = -1;
-            Flip();
+            Flip(_horizontalMovement);
         }
 
         if (Input.GetKeyUp(RightKey) || Input.GetKeyUp(LeftKey))
@@ -46,13 +46,13 @@ public class Mover : MonoBehaviour
         _rigidbody2D.velocity = _movementDirection;
     }
 
-    private void Flip()
+    private void Flip(float movementDirection)
     {
-        if (_rigidbody2D.velocity.x > 0)
+        if (movementDirection > 0)
         {
             transform.localScale = new Vector3(1, 1, 1);
         }
-        else if(_rigidbody2D.velocity.x < 0)
+        else if(movementDirection < 0)
         {
             transform.localScale = new Vector3(1 * -1, 1, 1 * -1);
         }
