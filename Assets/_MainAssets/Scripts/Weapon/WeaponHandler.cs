@@ -27,7 +27,6 @@ public class WeaponHandler : MonoBehaviour
             }
         }
     }
-
     private void OnTriggerStay2D(Collider2D collision)
     {
         if (collision.gameObject.tag == "Item")
@@ -72,7 +71,6 @@ public class WeaponHandler : MonoBehaviour
             OnPickUpWeapon?.Invoke();
         }
     }
-
     private void DropWeapon()
     {
         _currentWeaponGO.transform.SetParent(_weaponFreeParent.transform);
@@ -88,14 +86,27 @@ public class WeaponHandler : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKey(DropWeaponKey) && _currentWeapon != null)
+        if (_currentWeapon != null)
         {
-            DropWeapon();
-        }
+            if (Input.GetKey(DropWeaponKey))
+            {
+                DropWeapon();
+            }
 
-        if (Input.GetKey(ShootWeaponKey) && _currentWeapon != null)
-        {
-            _currentWeapon.Shoot();
-        }
+            if (_currentWeapon.WeaponTypeOfShooting == Weapon.TypeOfShooting.Single)
+            {
+                if (Input.GetKeyDown(ShootWeaponKey) && _currentWeapon != null)
+                {
+                    _currentWeapon.Shoot();
+                }
+            }
+            else if (_currentWeapon.WeaponTypeOfShooting == Weapon.TypeOfShooting.Auto)
+            {
+                if (Input.GetKey(ShootWeaponKey) && _currentWeapon != null)
+                {
+                    _currentWeapon.Shoot();
+                }
+            }
+        }        
     }
 }
