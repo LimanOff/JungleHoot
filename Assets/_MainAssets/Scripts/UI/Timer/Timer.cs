@@ -4,7 +4,7 @@ using System.Collections;
 
 public class Timer : MonoBehaviour
 {
-    public static Action TimeUp;
+    public Action TimeUp;
 
     [Range(30f,180f), Tooltip("Время раунда в секундах (от 30 сек до 3 мин)")]
     public float StartTimeInSeconds;
