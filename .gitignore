@@ -76,4 +76,7 @@ crashlytics-build.properties
 *.asc
 *.pub
 
+# Meta Files
+*.meta
+
 
