@@ -7,6 +7,11 @@ public class HealthUI : MonoBehaviour
 
     [SerializeField] private Text playerTXT;
 
+    private void Awake()
+    {
+        UpdateHealth(playerHS.CurrentHealth);
+    }
+
     private void OnEnable()
     {
         playerHS.ReceivedDamage += UpdateHealth;
