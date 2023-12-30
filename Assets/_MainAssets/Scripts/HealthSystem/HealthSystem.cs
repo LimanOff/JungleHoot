@@ -30,6 +30,7 @@ public class HealthSystem : MonoBehaviour
             if (_currentHealth == 0)
             {
                 Die?.Invoke();
+                CurrentHealth = MaxHealth;
             }
         }
     }
