@@ -3,16 +3,17 @@ using UnityEngine;
 
 public class WeaponHandler : MonoBehaviour
 {
-    public static event Action OnPickUpWeapon;
-    public static event Action OnDropWeapon;
+    public event Action PickUpedWeapon;
+    public event Action DropedWeapon;
 
     private Weapon _currentWeapon;
     private GameObject _currentWeaponGO;
 
-    private GameObject _weaponHolder;
-
+    [Header("Debug")]
+    [SerializeField]private GameObject _weaponHolder;
     [SerializeField] private GameObject _weaponFreeParent;
-    
+
+    [Header("Input")]
     [SerializeField] private KeyCode InteractKey;
     [SerializeField] private KeyCode DropWeaponKey;
     [SerializeField] private KeyCode ShootWeaponKey;
@@ -68,7 +69,7 @@ public class WeaponHandler : MonoBehaviour
             _currentWeapon = weapon.GetComponent<Weapon>();
             _currentWeaponGO = weapon;
 
-            OnPickUpWeapon?.Invoke();
+            PickUpedWeapon?.Invoke();
         }
     }
     private void DropWeapon()
@@ -81,18 +82,13 @@ public class WeaponHandler : MonoBehaviour
         _currentWeaponGO.GetComponent<BoxCollider2D>().enabled = true;
 
         _currentWeaponGO = null;
-        OnDropWeapon?.Invoke();
+        DropedWeapon?.Invoke();
     }
 
     private void Update()
     {
         if (_currentWeapon != null)
         {
-            if (Input.GetKey(DropWeaponKey))
-            {
-                DropWeapon();
-            }
-
             if (_currentWeapon.WeaponTypeOfShooting == Weapon.TypeOfShooting.Single)
             {
                 if (Input.GetKeyDown(ShootWeaponKey) && _currentWeapon != null)
@@ -106,6 +102,11 @@ public class WeaponHandler : MonoBehaviour
                 {
                     _currentWeapon.Shoot();
                 }
+            }
+
+            if (Input.GetKey(DropWeaponKey))
+            {
+                DropWeapon();
             }
         }        
     }
