@@ -4,6 +4,8 @@ using UnityEngine;
 public class Mover : MonoBehaviour
 {
     private Rigidbody2D _rigidbody2D;
+    
+    [SerializeField] private Transform _playerBody;
 
     [Header("Input")]
     public KeyCode RightKey;
@@ -50,11 +52,11 @@ public class Mover : MonoBehaviour
     {
         if (movementDirection > 0)
         {
-            transform.localScale = new Vector3(1, 1, 1);
+            _playerBody.localScale = new Vector3(1, 1, 1);
         }
         else if(movementDirection < 0)
         {
-            transform.localScale = new Vector3(1 * -1, 1, 1 * -1);
+            _playerBody.localScale = new Vector3(1 * -1, 1, 1 * -1);
         }
     }
 }

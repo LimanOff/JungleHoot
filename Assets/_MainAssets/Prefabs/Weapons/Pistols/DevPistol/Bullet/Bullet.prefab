@@ -126,3 +126,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BulletSpeed: 8
+  Damage: 5
