@@ -1,4 +1,3 @@
-using UnityEngine;
 using Zenject;
 
 public class EntityInstaller : MonoInstaller
@@ -9,6 +8,7 @@ public class EntityInstaller : MonoInstaller
     {
         Container.Bind<Timer>().FromInstance(Timer).AsSingle();
         Container.Bind<TimerUI>().FromInstance(TimerUI).AsSingle();
+        Container.Bind<LoaderNewLevels>().AsSingle().NonLazy();
 
         InitializeComponents();
     }
