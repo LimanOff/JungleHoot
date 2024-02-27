@@ -9,12 +9,7 @@ public class MusicLoopManager : MonoBehaviour
 
     private void OnEnable()
     {
-        SceneManager.sceneLoaded += delegate { SetMusicBasedOnCurrentLevel(); };
-    }
-
-    private void OnDisable()
-    {
-        SceneManager.sceneLoaded -= delegate { SetMusicBasedOnCurrentLevel(); };
+        SetMusicBasedOnCurrentLevel();
     }
 
     private void SetMusicBasedOnCurrentLevel()
