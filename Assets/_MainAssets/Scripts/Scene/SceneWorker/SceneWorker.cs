@@ -5,7 +5,7 @@ public class SceneWorker : MonoBehaviour
 {
     public void LoadScene(string nameOfScene)
     {
-        SceneManager.LoadScene(nameOfScene);
+        SceneManager.LoadSceneAsync(nameOfScene);
     }
 
     public void OpenPanel(GameObject panel)
