@@ -1,10 +1,9 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(BoxCollider2D)), RequireComponent(typeof(Rigidbody2D))]
 public class Jumper : MonoBehaviour
 {
-    public KeyCode JumpKey;
-
     public delegate void PlayerJumpedHandler();
     public event PlayerJumpedHandler PlayerJumped;
 
@@ -12,17 +11,43 @@ public class Jumper : MonoBehaviour
     private Rigidbody2D _rigidbody2D;
     public float JumpHeight;
 
-    private void Start()
+    private PlayerInput _playerInput;
+
+    private void Awake()
     {
+        _playerInput = new PlayerInput();
         _rigidbody2D = GetComponent<Rigidbody2D>();
+
+        if (gameObject.name == "Player 1")
+        {
+            _playerInput.Player1.Jump.performed += OnJump;
+        }
+        else
+        {
+            _playerInput.Player2.Jump.performed += OnJump;
+        }
     }
 
-    private void Update()
+    private void OnDestroy()
     {
-        if(Input.GetKeyDown(JumpKey) && CalcCanJump())
+        if (gameObject.name == "Player 1")
         {
-            Jump();
+            _playerInput.Player1.Jump.performed -= OnJump;
         }
+        else
+        {
+            _playerInput.Player2.Jump.performed -= OnJump;
+        }
+    }
+
+    private void OnEnable()
+    {
+        _playerInput.Enable();
+    }
+
+    private void OnDisable()
+    {
+        _playerInput.Disable();
     }
 
     private void Jump()
@@ -30,6 +55,12 @@ public class Jumper : MonoBehaviour
         float jumpForce = (Mathf.Sqrt(JumpHeight * (Physics2D.gravity.y * _rigidbody2D.gravityScale) * -2)) * _rigidbody2D.mass;
         _rigidbody2D.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
         PlayerJumped?.Invoke();
+    }
+
+    public void OnJump(InputAction.CallbackContext context)
+    {
+        if (CalcCanJump())
+            Jump();
     }
 
     private bool CalcCanJump()

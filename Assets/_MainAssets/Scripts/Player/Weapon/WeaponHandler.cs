@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class WeaponHandler : MonoBehaviour
 {
@@ -8,51 +9,81 @@ public class WeaponHandler : MonoBehaviour
 
     private Weapon _currentWeapon;
     private GameObject _currentWeaponGO;
+    private GameObject _probablyWeaponGO;
+    private PlayerInput _playerInput;
 
     [Header("Debug")]
-    [SerializeField]private GameObject _weaponHolder;
+    [SerializeField] private GameObject _weaponHolder;
     [SerializeField] private GameObject _weaponFreeParent;
-
-    [Header("Input")]
-    [SerializeField] private KeyCode InteractKey;
-    [SerializeField] private KeyCode DropWeaponKey;
-    [SerializeField] private KeyCode ShootWeaponKey;
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if(collision.gameObject.tag == "Item")
-        {
-            if (Input.GetKey(InteractKey))
-            {
-                PickupWeapon(collision.gameObject);
-            }
-        }
-    }
-    private void OnTriggerStay2D(Collider2D collision)
-    {
-        if (collision.gameObject.tag == "Item")
-        {
-            if (Input.GetKey(InteractKey))
-            {
-                PickupWeapon(collision.gameObject);
-            }
-        }
-    }
 
     private void Awake()
     {
-        foreach(Transform child in transform)
+        _playerInput = new PlayerInput();
+
+        foreach (Transform child in transform)
         {
             if (child.CompareTag("WeaponHolder"))
             {
                 _weaponHolder = child.gameObject;
             }
         }
+
+        if (gameObject.name == "Player 1")
+        {
+            _playerInput.Player1.Drop.performed += OnDrop;
+            _playerInput.Player1.Shoot.performed += OnShoot;
+            _playerInput.Player1.Interact.performed += OnInteract;
+        }
+        else
+        {
+            _playerInput.Player2.Drop.performed += OnDrop;
+            _playerInput.Player2.Shoot.performed += OnShoot;
+            _playerInput.Player2.Interact.performed += OnInteract;
+        }
+    }
+    private void OnDestroy()
+    {
+        if (gameObject.name == "Player1")
+        {
+            _playerInput.Player1.Drop.performed -= OnDrop;
+            _playerInput.Player1.Shoot.performed -= OnShoot;
+            _playerInput.Player1.Interact.performed -= OnInteract;
+        }
+        else
+        {
+            _playerInput.Player2.Drop.performed -= OnDrop;
+            _playerInput.Player2.Shoot.performed -= OnShoot;
+            _playerInput.Player2.Interact.performed -= OnInteract;
+        }
+    }
+
+    private void OnEnable()
+    {
+        _playerInput.Enable();
+    }
+    private void OnDisable()
+    {
+        _playerInput.Disable();
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "Item")
+        {
+            _probablyWeaponGO = collision.gameObject;
+        }
+    }
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "Item")
+        {
+            _probablyWeaponGO = collision.gameObject;
+        }
     }
 
     private void PickupWeapon(GameObject weapon)
     {
-        if (_currentWeapon == null)
+        if (_currentWeapon == null && _probablyWeaponGO != null)
         {
             Rigidbody2D weaponRB2D = weapon.GetComponent<Rigidbody2D>();
             BoxCollider2D weaponBoxCollider2D = weapon.GetComponent<BoxCollider2D>();
@@ -75,7 +106,7 @@ public class WeaponHandler : MonoBehaviour
     private void DropWeapon()
     {
         _currentWeaponGO.transform.SetParent(_weaponFreeParent.transform);
-        
+
         _currentWeapon = null;
 
         _currentWeaponGO.GetComponent<Rigidbody2D>().simulated = true;
@@ -85,29 +116,18 @@ public class WeaponHandler : MonoBehaviour
         DropedWeapon?.Invoke();
     }
 
-    private void Update()
+    public void OnDrop(InputAction.CallbackContext context)
     {
         if (_currentWeapon != null)
-        {
-            if (_currentWeapon.WeaponTypeOfShooting == Weapon.TypeOfShooting.Single)
-            {
-                if (Input.GetKeyDown(ShootWeaponKey) && _currentWeapon != null)
-                {
-                    _currentWeapon.Shoot();
-                }
-            }
-            else if (_currentWeapon.WeaponTypeOfShooting == Weapon.TypeOfShooting.Auto)
-            {
-                if (Input.GetKey(ShootWeaponKey) && _currentWeapon != null)
-                {
-                    _currentWeapon.Shoot();
-                }
-            }
-
-            if (Input.GetKey(DropWeaponKey))
-            {
-                DropWeapon();
-            }
-        }        
+            DropWeapon();
+    }
+    public void OnShoot(InputAction.CallbackContext context)
+    {
+        if (_currentWeapon != null)
+            _currentWeapon.Shoot();
+    }
+    public void OnInteract(InputAction.CallbackContext context)
+    {
+        PickupWeapon(_probablyWeaponGO);
     }
 }
