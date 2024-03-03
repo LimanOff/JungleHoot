@@ -10,7 +10,6 @@ public class WeaponHandler : MonoBehaviour
     private Weapon _currentWeapon;
     private GameObject _currentWeaponGO;
     private GameObject _probablyWeaponGO;
-    private PlayerInput _playerInput;
 
     [Header("Debug")]
     [SerializeField] private GameObject _weaponHolder;
@@ -18,8 +17,6 @@ public class WeaponHandler : MonoBehaviour
 
     private void Awake()
     {
-        _playerInput = new PlayerInput();
-
         foreach (Transform child in transform)
         {
             if (child.CompareTag("WeaponHolder"))
@@ -30,40 +27,31 @@ public class WeaponHandler : MonoBehaviour
 
         if (gameObject.name == "Player 1")
         {
-            _playerInput.Player1.Drop.performed += OnDrop;
-            _playerInput.Player1.Shoot.performed += OnShoot;
-            _playerInput.Player1.Interact.performed += OnInteract;
+            PlayerInputController.GameInput.Player1.Drop.performed += OnDrop;
+            PlayerInputController.GameInput.Player1.Shoot.performed += OnShoot;
+            PlayerInputController.GameInput.Player1.Interact.performed += OnInteract;
         }
         else
         {
-            _playerInput.Player2.Drop.performed += OnDrop;
-            _playerInput.Player2.Shoot.performed += OnShoot;
-            _playerInput.Player2.Interact.performed += OnInteract;
+            PlayerInputController.GameInput.Player2.Drop.performed += OnDrop;
+            PlayerInputController.GameInput.Player2.Shoot.performed += OnShoot;
+            PlayerInputController.GameInput.Player2.Interact.performed += OnInteract;
         }
     }
     private void OnDestroy()
     {
-        if (gameObject.name == "Player1")
+        if (gameObject.name == "Player 1")
         {
-            _playerInput.Player1.Drop.performed -= OnDrop;
-            _playerInput.Player1.Shoot.performed -= OnShoot;
-            _playerInput.Player1.Interact.performed -= OnInteract;
+            PlayerInputController.GameInput.Player1.Drop.performed -= OnDrop;
+            PlayerInputController.GameInput.Player1.Shoot.performed -= OnShoot;
+            PlayerInputController.GameInput.Player1.Interact.performed -= OnInteract;
         }
         else
         {
-            _playerInput.Player2.Drop.performed -= OnDrop;
-            _playerInput.Player2.Shoot.performed -= OnShoot;
-            _playerInput.Player2.Interact.performed -= OnInteract;
+            PlayerInputController.GameInput.Player2.Drop.performed -= OnDrop;
+            PlayerInputController.GameInput.Player2.Shoot.performed -= OnShoot;
+            PlayerInputController.GameInput.Player2.Interact.performed -= OnInteract;
         }
-    }
-
-    private void OnEnable()
-    {
-        _playerInput.Enable();
-    }
-    private void OnDisable()
-    {
-        _playerInput.Disable();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

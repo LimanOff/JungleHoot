@@ -14,29 +14,9 @@ public class Mover : MonoBehaviour
     private float _horizontalMovement;
     private Vector2 _movementDirection;
 
-    private PlayerInput _playerInput;
-
     private void Awake()
     {
-        _playerInput = new PlayerInput();
         _rigidbody2D = GetComponent<Rigidbody2D>();
-    }
-
-    private void OnEnable()
-    {
-        _playerInput.Enable();
-    }
-
-    private void OnDisable()
-    {
-        _playerInput.Disable();
-    }
-
-    public void OnMove(InputAction.CallbackContext context)
-    {
-        Debug.Log(context.action.ReadValue<Vector2>());
-        _horizontalMovement = 0;
-        
     }
 
     private void Update()
@@ -65,11 +45,11 @@ public class Mover : MonoBehaviour
     {
         if (gameObject.name == "Player 1")
         {
-            _horizontalMovement = _playerInput.Player1.Move.ReadValue<float>();
+            _horizontalMovement = PlayerInputController.GameInput.Player1.Move.ReadValue<float>();
         }
         else
         {
-            _horizontalMovement = _playerInput.Player2.Move.ReadValue<float>();
+            _horizontalMovement = PlayerInputController.GameInput.Player2.Move.ReadValue<float>();
         }
         Flip(_horizontalMovement);
     }

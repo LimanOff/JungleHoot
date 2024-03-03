@@ -1,5 +1,5 @@
 {
-    "name": "PlayerInput",
+    "name": "GameInput",
     "maps": [
         {
             "name": "Player1",
@@ -258,6 +258,34 @@
                     "action": "Move",
                     "isComposite": false,
                     "isPartOfComposite": true
+                }
+            ]
+        },
+        {
+            "name": "UI",
+            "id": "4a6fdc0b-9fa1-4098-a962-b2ab9ace8f51",
+            "actions": [
+                {
+                    "name": "CallPausePanel",
+                    "type": "Button",
+                    "id": "227d2d4a-a076-4111-86d4-2b30d01d03c9",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "0e382e1c-6f65-4eee-a9fc-e86ec6335c76",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "CallPausePanel",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         }
