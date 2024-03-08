@@ -11,8 +11,6 @@ public class Weapon : MonoBehaviour
     public int AmountOfBullets;
     [field: SerializeField] public int CurrentAmountOfBullets { get; private set; }
 
-    [field: SerializeField] public TypeOfShooting WeaponTypeOfShooting { get; private set; }
-
     [Header("Debug")]
     [SerializeField] private GameObject _bulletSpawnPoint;
     [SerializeField] private GameObject _bulletPrefab;
@@ -37,11 +35,5 @@ public class Weapon : MonoBehaviour
         {
             NoMoreBullets?.Invoke();
         }
-    }
-
-    public enum TypeOfShooting
-    {
-        Auto,
-        Single
     }
 }
