@@ -93,7 +93,7 @@ public class WeaponHandler : MonoBehaviour
     }
     private void DropWeapon()
     {
-        _currentWeaponGO.transform.SetParent(_weaponFreeParent.transform);
+        _currentWeaponGO.transform.parent = null;
 
         _currentWeapon = null;
 
