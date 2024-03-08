@@ -6,6 +6,7 @@ public class WeaponHandler : MonoBehaviour
 {
     public event Action PickUpedWeapon;
     public event Action DropedWeapon;
+    public event Action<Vector3> WeaponDestroyed;
 
     private Weapon _currentWeapon;
     private GameObject _currentWeaponGO;
@@ -88,18 +89,28 @@ public class WeaponHandler : MonoBehaviour
             _currentWeapon = weapon.GetComponent<Weapon>();
             _currentWeaponGO = weapon;
 
+            _currentWeapon.NoMoreBullets += DropWeapon;
+
             PickUpedWeapon?.Invoke();
         }
     }
     private void DropWeapon()
     {
+        _currentWeapon.NoMoreBullets -= DropWeapon;
+
         _currentWeaponGO.transform.parent = null;
 
+        if (_currentWeapon.CurrentAmountOfBullets == 0)
+        {
+            DestroyWeapon(_currentWeaponGO);
+        }
+        else
+        {
+            _currentWeaponGO.GetComponent<Rigidbody2D>().simulated = true;
+            _currentWeaponGO.GetComponent<BoxCollider2D>().enabled = true;
+        }
+
         _currentWeapon = null;
-
-        _currentWeaponGO.GetComponent<Rigidbody2D>().simulated = true;
-        _currentWeaponGO.GetComponent<BoxCollider2D>().enabled = true;
-
         _currentWeaponGO = null;
         DropedWeapon?.Invoke();
     }
@@ -117,5 +128,11 @@ public class WeaponHandler : MonoBehaviour
     public void OnInteract(InputAction.CallbackContext context)
     {
         PickupWeapon(_probablyWeaponGO);
+    }
+
+    private void DestroyWeapon(GameObject weaponGO)
+    {
+        WeaponDestroyed?.Invoke(weaponGO.transform.position);
+        Destroy(weaponGO);
     }
 }

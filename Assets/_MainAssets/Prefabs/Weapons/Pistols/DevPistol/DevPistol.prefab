@@ -167,8 +167,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Name: "\u041F\u0438\u0441\u0442\u043E\u043B\u0435\u0442"
-  Damage: 10
-  AmountOfBullets: 50
+  AmountOfBullets: 10
+  <CurrentAmountOfBullets>k__BackingField: 0
+  <WeaponTypeOfShooting>k__BackingField: 1
   _bulletSpawnPoint: {fileID: 6720659449426714000}
   _bulletPrefab: {fileID: 393048919279342122, guid: 56d7876b7ddd6f7439149ea1da26e2e2, type: 3}
 --- !u!60 &5217583535382802461

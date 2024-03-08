@@ -50,7 +50,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Name: "\u041F\u0438\u0441\u0442\u043E\u043B\u0435\u0442"
-  AmountOfBullets: 5000
+  AmountOfBullets: 100
   <CurrentAmountOfBullets>k__BackingField: 250
   <WeaponTypeOfShooting>k__BackingField: 0
   _bulletSpawnPoint: {fileID: 7158661111096975605}
