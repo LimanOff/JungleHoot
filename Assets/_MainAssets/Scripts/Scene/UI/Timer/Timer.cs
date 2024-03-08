@@ -4,26 +4,27 @@ using System.Collections;
 
 public class Timer : MonoBehaviour
 {
-    public Action TimeUp;
+    public event Action TimeUp;
+    public event Action TimeTick;
 
     [Range(30f,180f), Tooltip("Время раунда в секундах (от 30 сек до 3 мин)")]
     public float StartTimeInSeconds;
 
     public float CurrentTimeInSeconds { get; private set; }
 
-    public Coroutine Counting;
+    private Coroutine _counting;
 
     public void Initialize()
     {
         CurrentTimeInSeconds = StartTimeInSeconds;
-        Counting = StartCoroutine(Count());
+        _counting = StartCoroutine(Count());
 
-        TimeUp += delegate { StopCoroutine(Counting); };
+        TimeUp += delegate { StopCoroutine(_counting); };
     }
 
     private void OnDisable()
     {
-        TimeUp -= delegate { StopCoroutine(Counting); };
+        TimeUp -= delegate { StopCoroutine(_counting); };
     }
 
     private IEnumerator Count()
@@ -31,6 +32,7 @@ public class Timer : MonoBehaviour
         while (CurrentTimeInSeconds != 0)
         {
             CurrentTimeInSeconds--;
+            TimeTick?.Invoke();
             yield return new WaitForSeconds(1f);
         }
         TimeUp?.Invoke();
