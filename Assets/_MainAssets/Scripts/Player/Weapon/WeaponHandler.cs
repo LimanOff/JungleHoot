@@ -69,6 +69,10 @@ public class WeaponHandler : MonoBehaviour
             _probablyWeaponGO = collision.gameObject;
         }
     }
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        _probablyWeaponGO = null;
+    }
 
     private void PickupWeapon(GameObject weapon)
     {
