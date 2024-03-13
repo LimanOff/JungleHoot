@@ -1,12 +1,10 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
+ using System;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
 public class HealthSystem : MonoBehaviour
 {
-    public Action Die;
+    public event Action Die;
     public Action<float> ReceivedDamage;
 
     [field: SerializeField] public float MaxHealth { get; private set; }
@@ -29,8 +27,8 @@ public class HealthSystem : MonoBehaviour
 
             if (_currentHealth == 0)
             {
-                Die?.Invoke();
                 CurrentHealth = MaxHealth;
+                Die?.Invoke();
             }
         }
     }

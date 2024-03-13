@@ -12,12 +12,16 @@ public class WeaponHandler : MonoBehaviour
     private GameObject _currentWeaponGO;
     private GameObject _probablyWeaponGO;
 
+    private HealthSystem _healthSystem;
+
     [Header("Debug")]
     [SerializeField] private GameObject _weaponHolder;
     [SerializeField] private GameObject _weaponFreeParent;
 
     private void Awake()
     {
+        _healthSystem = GetComponent<HealthSystem>();
+
         foreach (Transform child in transform)
         {
             if (child.CompareTag("WeaponHolder"))
@@ -25,6 +29,8 @@ public class WeaponHandler : MonoBehaviour
                 _weaponHolder = child.gameObject;
             }
         }
+
+        _healthSystem.Die += DropWeapon;
 
         if (gameObject.name == "Player 1")
         {
@@ -41,6 +47,8 @@ public class WeaponHandler : MonoBehaviour
     }
     private void OnDestroy()
     {
+        _healthSystem.Die -= DropWeapon;
+
         if (gameObject.name == "Player 1")
         {
             PlayerInputController.GameInput.Player1.Drop.performed -= OnDrop;
@@ -100,23 +108,26 @@ public class WeaponHandler : MonoBehaviour
     }
     private void DropWeapon()
     {
-        _currentWeapon.NoMoreBullets -= DropWeapon;
-
-        _currentWeaponGO.transform.parent = null;
-
-        if (_currentWeapon.CurrentAmountOfBullets == 0)
+        if (_currentWeapon != null)
         {
-            DestroyWeapon(_currentWeaponGO);
-        }
-        else
-        {
-            _currentWeaponGO.GetComponent<Rigidbody2D>().simulated = true;
-            _currentWeaponGO.GetComponent<BoxCollider2D>().enabled = true;
-        }
+            _currentWeapon.NoMoreBullets -= DropWeapon;
 
-        _currentWeapon = null;
-        _currentWeaponGO = null;
-        DropedWeapon?.Invoke();
+            _currentWeaponGO.transform.parent = null;
+
+            if (_currentWeapon.CurrentAmountOfBullets == 0)
+            {
+                DestroyWeapon(_currentWeaponGO);
+            }
+            else
+            {
+                _currentWeaponGO.GetComponent<Rigidbody2D>().simulated = true;
+                _currentWeaponGO.GetComponent<BoxCollider2D>().enabled = true;
+            }
+
+            _currentWeapon = null;
+            _currentWeaponGO = null;
+            DropedWeapon?.Invoke();
+        }
     }
 
     public void OnDrop(InputAction.CallbackContext context)
