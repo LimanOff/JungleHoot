@@ -1,11 +1,14 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(BoxCollider2D)), RequireComponent(typeof(Rigidbody2D))]
 public class Jumper : MonoBehaviour
 {
-    public delegate void PlayerJumpedHandler();
-    public event PlayerJumpedHandler PlayerJumped;
+    public event Action PlayerStartJump;
+    public event Action PlayerInAir;
+    public event Action PlayerOnGround;
+    public event Action PlayerJumped;
 
     [SerializeField] private LayerMask JumpableObjects;
     private Rigidbody2D _rigidbody2D;
@@ -40,18 +43,21 @@ public class Jumper : MonoBehaviour
 
     private void Jump()
     {
+        PlayerStartJump?.Invoke();
+
         float jumpForce = (Mathf.Sqrt(JumpHeight * (Physics2D.gravity.y * _rigidbody2D.gravityScale) * -2)) * _rigidbody2D.mass;
         _rigidbody2D.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+
         PlayerJumped?.Invoke();
     }
 
     public void OnJump(InputAction.CallbackContext context)
     {
-        if (CalcCanJump())
+        if (IsOnGround())
             Jump();
     }
 
-    private bool CalcCanJump()
+    private bool IsOnGround()
     {
         if (Physics2D.Raycast(transform.position, Vector2.down, .7f, JumpableObjects))
         {
@@ -60,6 +66,18 @@ public class Jumper : MonoBehaviour
         else
         {
             return false;
+        }
+    }
+
+    private void Update()
+    {
+        if (!IsOnGround())
+        {
+            PlayerInAir?.Invoke();
+        }
+        else
+        {
+            PlayerOnGround?.Invoke();
         }
     }
 }

@@ -1,15 +1,18 @@
+using System;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(Rigidbody2D))]
 public class Mover : MonoBehaviour
 {
+    public event Action PlayerIsMoving;
+    public event Action PlayerIsStay;
+
     private Rigidbody2D _rigidbody2D;
 
     [SerializeField] private Transform _playerBody;
 
     [Header("Characteristics")]
-    [Range(8f, 12f)] public int Speed;
+    [Range(12f, 20f)] public int Speed;
 
     private float _horizontalMovement;
     private Vector2 _movementDirection;
@@ -52,5 +55,10 @@ public class Mover : MonoBehaviour
             _horizontalMovement = PlayerInputController.GameInput.Player2.Move.ReadValue<float>();
         }
         Flip(_horizontalMovement);
+
+        if (_horizontalMovement == 0)
+            PlayerIsStay?.Invoke();
+        else
+            PlayerIsMoving?.Invoke();
     }
 }

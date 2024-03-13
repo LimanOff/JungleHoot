@@ -5,6 +5,7 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
 public class Bullet : MonoBehaviour
 {
+    [Range(17f, 25f)]
     public float BulletSpeed;
     public int Damage;
 
