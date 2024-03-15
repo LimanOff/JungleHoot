@@ -12,11 +12,13 @@ public class Jumper : MonoBehaviour
 
     [SerializeField] private LayerMask JumpableObjects;
     private Rigidbody2D _rigidbody2D;
+    private BoxCollider2D _boxCollider2D;
     public float JumpHeight;
 
 
     private void Awake()
     {
+        _boxCollider2D = GetComponent<BoxCollider2D>();
         _rigidbody2D = GetComponent<Rigidbody2D>();
 
         if (gameObject.name == "Player 1")
@@ -53,13 +55,17 @@ public class Jumper : MonoBehaviour
 
     public void OnJump(InputAction.CallbackContext context)
     {
-        if (IsOnGround())
+        if (IsOnSurface())
             Jump();
     }
 
-    private bool IsOnGround()
+    private bool IsOnSurface()
     {
-        if (Physics2D.Raycast(transform.position, Vector2.down, .7f, JumpableObjects))
+        float colliderBottom = _boxCollider2D.bounds.min.y;
+        float offset = .1f;
+        Vector2 rayOrigin = new Vector2(transform.position.x, colliderBottom - offset);
+
+        if (Physics2D.Raycast(rayOrigin, Vector2.down, .7f, JumpableObjects))
         {
             return true;
         }
@@ -71,7 +77,7 @@ public class Jumper : MonoBehaviour
 
     private void Update()
     {
-        if (!IsOnGround())
+        if (!IsOnSurface())
         {
             PlayerInAir?.Invoke();
         }

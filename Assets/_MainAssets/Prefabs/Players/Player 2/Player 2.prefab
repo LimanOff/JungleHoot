@@ -862,7 +862,7 @@ GameObject:
   - component: {fileID: 1260235312858493893}
   - component: {fileID: 5847209020999913527}
   - component: {fileID: 802837673080832358}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Player 2
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -922,7 +922,7 @@ BoxCollider2D:
   m_GameObject: {fileID: 9099421430193539296}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 6abb22a7da51e884a8f45372f3a70f1b, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -1000,7 +1000,7 @@ MonoBehaviour:
   JumpableObjects:
     serializedVersion: 2
     m_Bits: 8
-  JumpHeight: 4
+  JumpHeight: 7
 --- !u!114 &791220636783508367
 MonoBehaviour:
   m_ObjectHideFlags: 0
