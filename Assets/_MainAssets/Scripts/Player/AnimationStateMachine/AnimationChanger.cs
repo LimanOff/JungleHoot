@@ -5,7 +5,7 @@ using UnityEngine;
  RequireComponent(typeof(Jumper)), RequireComponent(typeof(WeaponHandler))]
 public class AnimationChanger : MonoBehaviour
 {
-    [SerializeField] private string postfixNameForAnimationWithWeapon;
+    [SerializeField] private string postfixNameForAnimationWithHoldingWeapon;
 
     [SerializeField] private Animator _animator;
 
@@ -67,7 +67,7 @@ public class AnimationChanger : MonoBehaviour
         _jumper = GetComponent<Jumper>();
         _weaponHandler = GetComponent<WeaponHandler>();
 
-        Assert.IsNotEmpty(postfixNameForAnimationWithWeapon, "(Класс AnimationChanger). Постфикс имя для анимаций с оружием на задано.");
+        Assert.IsNotEmpty(postfixNameForAnimationWithHoldingWeapon, "(Класс AnimationChanger). Постфикс имя для анимаций с оружием на задано.");
     }
 
     private void ChangeState(string stateName)
@@ -76,11 +76,11 @@ public class AnimationChanger : MonoBehaviour
 
         if (_isInAir)
         {
-            animationToPlay = _hasWeapon ? $"Jump{postfixNameForAnimationWithWeapon}" : "Jump";
+            animationToPlay = _hasWeapon ? $"Jump{postfixNameForAnimationWithHoldingWeapon}" : "Jump";
         }
         else
         {
-            animationToPlay = _hasWeapon ? $"{stateName}{postfixNameForAnimationWithWeapon}" : stateName;
+            animationToPlay = _hasWeapon ? $"{stateName}{postfixNameForAnimationWithHoldingWeapon}" : stateName;
         }
 
         _animator.Play(animationToPlay);

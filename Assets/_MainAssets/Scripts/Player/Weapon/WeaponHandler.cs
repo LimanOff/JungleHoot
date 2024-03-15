@@ -8,6 +8,9 @@ public class WeaponHandler : MonoBehaviour
     public event Action DropedWeapon;
     public event Action<Vector3> WeaponDestroyed;
 
+    public event Action<string> WeaponShootedWithName;
+    public event Action WeaponShooted;
+
     private Weapon _currentWeapon;
     private GameObject _currentWeaponGO;
     private GameObject _probablyWeaponGO;
@@ -138,7 +141,12 @@ public class WeaponHandler : MonoBehaviour
     public void OnShoot(InputAction.CallbackContext context)
     {
         if (_currentWeapon != null)
+        {
+            WeaponShooted?.Invoke();
+            WeaponShootedWithName(_currentWeapon.Name);
+
             _currentWeapon.Shoot();
+        }
     }
     public void OnInteract(InputAction.CallbackContext context)
     {
