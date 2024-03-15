@@ -52,7 +52,7 @@ public class Mover : MonoBehaviour
         }
         else
         {
-            _horizontalMovement = PlayerInputController.GameInput.Player2.Move.ReadValue<float>();
+            _horizontalMovement = PlayerInputController.GameInput.Player2.Move2.ReadValue<float>();
         }
         Flip(_horizontalMovement);
 

@@ -136,7 +136,7 @@
             "id": "79675f40-4dd8-43c0-a0db-628562072a37",
             "actions": [
                 {
-                    "name": "Move",
+                    "name": "Move2",
                     "type": "Button",
                     "id": "2e5f2280-fe59-4971-a9db-33a136f85cbb",
                     "expectedControlType": "Button",
@@ -145,7 +145,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Shoot",
+                    "name": "Shoot2",
                     "type": "Button",
                     "id": "9da98e91-453b-44b7-b167-4812076c272c",
                     "expectedControlType": "Button",
@@ -154,7 +154,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Drop",
+                    "name": "Drop2",
                     "type": "Button",
                     "id": "f5c5c395-4c33-46ad-af9b-8ae2c90f84a2",
                     "expectedControlType": "Button",
@@ -163,7 +163,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Interact",
+                    "name": "Interact2",
                     "type": "Button",
                     "id": "54f92599-6ecc-4bed-a07e-73cb88c384f0",
                     "expectedControlType": "Button",
@@ -172,7 +172,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Jump",
+                    "name": "Jump2",
                     "type": "Button",
                     "id": "e9551296-891d-49d2-8549-60e3193b6f02",
                     "expectedControlType": "Button",
@@ -189,7 +189,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard and Mouse",
-                    "action": "Shoot",
+                    "action": "Shoot2",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -200,7 +200,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard and Mouse",
-                    "action": "Drop",
+                    "action": "Drop2",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -211,7 +211,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard and Mouse",
-                    "action": "Interact",
+                    "action": "Interact2",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -222,7 +222,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard and Mouse",
-                    "action": "Jump",
+                    "action": "Jump2",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -233,7 +233,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Move",
+                    "action": "Move2",
                     "isComposite": true,
                     "isPartOfComposite": false
                 },
@@ -244,7 +244,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard and Mouse",
-                    "action": "Move",
+                    "action": "Move2",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -255,7 +255,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard and Mouse",
-                    "action": "Move",
+                    "action": "Move2",
                     "isComposite": false,
                     "isPartOfComposite": true
                 }

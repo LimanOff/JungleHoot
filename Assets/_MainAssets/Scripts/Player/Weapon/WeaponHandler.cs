@@ -40,9 +40,9 @@ public class WeaponHandler : MonoBehaviour
         }
         else
         {
-            PlayerInputController.GameInput.Player2.Drop.performed += OnDrop;
-            PlayerInputController.GameInput.Player2.Shoot.performed += OnShoot;
-            PlayerInputController.GameInput.Player2.Interact.performed += OnInteract;
+            PlayerInputController.GameInput.Player2.Drop2.performed += OnDrop;
+            PlayerInputController.GameInput.Player2.Shoot2.performed += OnShoot;
+            PlayerInputController.GameInput.Player2.Interact2.performed += OnInteract;
         }
     }
     private void OnDestroy()
@@ -57,9 +57,9 @@ public class WeaponHandler : MonoBehaviour
         }
         else
         {
-            PlayerInputController.GameInput.Player2.Drop.performed -= OnDrop;
-            PlayerInputController.GameInput.Player2.Shoot.performed -= OnShoot;
-            PlayerInputController.GameInput.Player2.Interact.performed -= OnInteract;
+            PlayerInputController.GameInput.Player2.Drop2.performed -= OnDrop;
+            PlayerInputController.GameInput.Player2.Shoot2.performed -= OnShoot;
+            PlayerInputController.GameInput.Player2.Interact2.performed -= OnInteract;
         }
     }
 

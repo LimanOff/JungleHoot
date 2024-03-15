@@ -27,7 +27,7 @@ public class Jumper : MonoBehaviour
         }
         else
         {
-            PlayerInputController.GameInput.Player2.Jump.performed += OnJump;
+            PlayerInputController.GameInput.Player2.Jump2.performed += OnJump;
         }
     }
 
@@ -39,7 +39,7 @@ public class Jumper : MonoBehaviour
         }
         else
         {
-            PlayerInputController.GameInput.Player2.Jump.performed -= OnJump;
+            PlayerInputController.GameInput.Player2.Jump2.performed -= OnJump;
         }
     }
 
