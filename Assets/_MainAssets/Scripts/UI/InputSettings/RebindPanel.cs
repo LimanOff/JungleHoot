@@ -30,5 +30,11 @@ public class RebindPanel : MonoBehaviour
     public void ResetKeys()
     {
         _keyRebinders.ForEach(k => k.ResetKeyValue());
+        DropSavedKeys();
+    }
+
+    private void DropSavedKeys()
+    {
+        PlayerPrefs.DeleteAll();
     }
 }
