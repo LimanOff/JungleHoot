@@ -1,14 +1,14 @@
 using System;
 using UnityEngine;
 
-[RequireComponent(typeof(Rigidbody2D), typeof(BoxCollider2D))]
+[RequireComponent(typeof(Rigidbody2D), typeof(CompositeCollider2D))]
 public class Weapon : MonoBehaviour
 {
     public event Action NoMoreBullets;
 
     public string Name;
 
-    public int AmountOfBullets;
+    public int MaxAmountOfBullets;
     [field: SerializeField] public int CurrentAmountOfBullets { get; private set; }
 
     [Header("Debug")]
@@ -17,7 +17,7 @@ public class Weapon : MonoBehaviour
 
     private void Awake()
     {
-        CurrentAmountOfBullets = AmountOfBullets;
+        CurrentAmountOfBullets = MaxAmountOfBullets;
     }
 
     public void Shoot()
