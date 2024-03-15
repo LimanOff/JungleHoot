@@ -22,7 +22,7 @@ public class KeyRebinder
     {
         KeyToRebind.RebindButton.onClick.AddListener(StartRebinding);
 
-        KeyToRebindSaver.LoadSavedKeyBinding(ref KeyToRebind, KeyToRebindIndex);
+        KeyToRebindSaver.LoadSavedKeyBinding(KeyToRebind, KeyToRebindIndex);
 
         KeyValueChanged += (text) =>
         {
@@ -68,8 +68,6 @@ public class KeyRebinder
 
         if (!IsKeyAlreadyBound(newKeyPath))
         {
-            KeyToRebindSaver.SaveKeyBinding(newKeyPath);
-
             KeyValueChanged?.Invoke(newKeyPath);
         }
         else
