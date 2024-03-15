@@ -87,10 +87,10 @@ public class WeaponHandler : MonoBehaviour
         if (_currentWeapon == null && _probablyWeaponGO != null)
         {
             Rigidbody2D weaponRB2D = weapon.GetComponent<Rigidbody2D>();
-            BoxCollider2D weaponBoxCollider2D = weapon.GetComponent<BoxCollider2D>();
+            PolygonCollider2D weaponCollider2D = weapon.GetComponent<PolygonCollider2D>();
 
             weaponRB2D.simulated = false;
-            weaponBoxCollider2D.enabled = false;
+            weaponCollider2D.enabled = false;
 
             weapon.transform.SetParent(_weaponHolder.transform);
 
@@ -121,7 +121,7 @@ public class WeaponHandler : MonoBehaviour
             else
             {
                 _currentWeaponGO.GetComponent<Rigidbody2D>().simulated = true;
-                _currentWeaponGO.GetComponent<BoxCollider2D>().enabled = true;
+                _currentWeaponGO.GetComponent<PolygonCollider2D>().enabled = true;
             }
 
             _currentWeapon = null;

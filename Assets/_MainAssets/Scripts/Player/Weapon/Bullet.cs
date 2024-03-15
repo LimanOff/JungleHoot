@@ -11,7 +11,7 @@ public class Bullet : MonoBehaviour
 
     private void Update()
     {
-        RaycastHit2D hit2D = Physics2D.Raycast(transform.position, transform.right, 0.1f);
+        RaycastHit2D hit2D = Physics2D.Raycast(transform.position, transform.up, 0.1f);
 
         if (hit2D.collider != null)
         {
@@ -22,15 +22,15 @@ public class Bullet : MonoBehaviour
                 hittenGO.GetComponent<HealthSystem>().TakeDamage(Damage);
             }
 
+
             BlowUp();
         }
 
-        transform.Translate(Vector3.right * BulletSpeed * Time.deltaTime);
+        transform.Translate(Vector3.up * BulletSpeed * Time.deltaTime);
     }
 
     public virtual void BlowUp()
     {
-        Debug.Log("¡ÛÏ");
         Destroy(gameObject);
     }
 }

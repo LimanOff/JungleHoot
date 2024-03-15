@@ -1891,8 +1891,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _weaponsPrefabs:
-  - {fileID: 5163779726142145824, guid: 7224d187c0440e24fbc2aa9d48d3d906, type: 3}
-  - {fileID: 743799387054716139, guid: 4bfda954faf7c934e98c9105053115d2, type: 3}
+  - {fileID: 8622020213427804402, guid: c1f45520103a0434d968de7aede9d6ae, type: 3}
+  - {fileID: 2720595561394696351, guid: a4e33ca685761b043ad750bc40c61180, type: 3}
+  - {fileID: 6779190992896090908, guid: a424721da338a9e4a910a70822d4fc92, type: 3}
   _gunSpawnPoints:
   - {fileID: 2132665580}
   - {fileID: 124474496}
@@ -1905,7 +1906,7 @@ MonoBehaviour:
   - {fileID: 282618874}
   - {fileID: 771089662}
   - {fileID: 735937147}
-  _spawnTimeOut: 10
+  _spawnTimeOut: 8
 --- !u!1 &845232573
 GameObject:
   m_ObjectHideFlags: 0
