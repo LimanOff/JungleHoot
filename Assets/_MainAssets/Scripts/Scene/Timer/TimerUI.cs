@@ -14,10 +14,19 @@ public class TimerUI : MonoBehaviour
         _timer = timer;
     }
 
-    private void Update()
+    private void Awake()
     {
-        float minutes = Mathf.FloorToInt(_timer.CurrentTimeInSeconds / 60);
-        float seconds = Mathf.FloorToInt(_timer.CurrentTimeInSeconds % 60);
+        _timer.TimeTick += UpdateText;
+    }
+    private void OnDestroy()
+    {
+        _timer.TimeTick -= UpdateText;
+    }
+
+    private void UpdateText()
+    {
+        float minutes = _timer.CurrentTimeInSeconds / 60;
+        float seconds = _timer.CurrentTimeInSeconds % 60;
         _timerText.text = String.Format("{0:00}:{1:00}", minutes, seconds);
     }
 }

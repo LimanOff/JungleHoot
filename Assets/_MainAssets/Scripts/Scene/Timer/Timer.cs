@@ -7,10 +7,10 @@ public class Timer : MonoBehaviour
     public event Action TimeUp;
     public event Action TimeTick;
 
-    [Range(30f,180f), Tooltip("Время раунда в секундах (от 30 сек до 3 мин)")]
-    public float StartTimeInSeconds;
+    [Range(30,180), Tooltip("Время раунда в секундах (от 30 сек до 3 мин)")]
+    public int StartTimeInSeconds;
 
-    public float CurrentTimeInSeconds { get; private set; }
+    public int CurrentTimeInSeconds { get; private set; }
 
     private Coroutine _counting;
 
