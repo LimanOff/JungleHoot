@@ -2,6 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+[RequireComponent(typeof(HealthSystem))]
 public class WeaponHandler : MonoBehaviour
 {
     public event Action WeaponPickedUp;
@@ -22,15 +23,16 @@ public class WeaponHandler : MonoBehaviour
     {
         _healthSystem = GetComponent<HealthSystem>();
 
-        foreach (Transform child in transform)
-        {
-            if (child.CompareTag("WeaponHolder"))
-            {
-                _weaponHolder = child.gameObject;
-            }
-        }
+        SubscribeToEvents();
+    }
+    private void OnDestroy()
+    {
+        UnSubscribeFromEvents();
+    }
 
-        _healthSystem.Die += DropWeapon;
+    private void SubscribeToEvents()
+    {
+        _healthSystem.Die += OnDrop;
 
         if (gameObject.name == "Player 1")
         {
@@ -45,9 +47,19 @@ public class WeaponHandler : MonoBehaviour
             PlayerInputController.GameInput.Player2.Interact2.performed += OnInteract;
         }
     }
-    private void OnDestroy()
+    private void UnSubscribeFromEvents()
     {
-        _healthSystem.Die -= DropWeapon;
+        _healthSystem.Die -= OnDrop;
+
+        if (IsThereWeaponInHands())
+        {
+            _currentWeapon.NoMoreBullets -= () =>
+            {
+                _currentWeaponGO.tag = "Untagged";
+                OnDrop();
+            };
+        }
+        
 
         if (gameObject.name == "Player 1")
         {
@@ -61,6 +73,121 @@ public class WeaponHandler : MonoBehaviour
             PlayerInputController.GameInput.Player2.Shoot2.performed -= OnShoot;
             PlayerInputController.GameInput.Player2.Interact2.performed -= OnInteract;
         }
+    }
+
+
+    private void PickupWeapon(GameObject weaponGameObject)
+    {
+        if (weaponGameObject != null)
+        {
+            SetWeaponGameObjectInWeaponHolder(ref weaponGameObject,ref _weaponHolder);
+
+            _currentWeapon.NoMoreBullets += () =>
+            {
+                _currentWeaponGO.tag = "Untagged";
+                OnDrop();
+            };
+
+            WeaponPickedUp?.Invoke();
+        }
+    }
+    private void DropWeapon()
+    {
+        _currentWeapon.NoMoreBullets -= () =>
+        {
+            _currentWeaponGO.tag = "Untagged";
+            OnDrop();
+        };
+
+        UnSetWeaponGameObjectFromWeaponHolder(ref _currentWeaponGO, ref _currentWeapon);
+
+        WeaponDropped?.Invoke();
+    }
+
+    public void OnDrop(InputAction.CallbackContext context)
+    {
+        if (IsThereWeaponInHands())
+            DropWeapon();
+    }
+    public void OnDrop()
+    {
+        if (IsThereWeaponInHands())
+            DropWeapon();
+    }
+
+    public void OnShoot(InputAction.CallbackContext context)
+    {
+        if (IsThereWeaponInHands())
+        {
+            _currentWeapon.Shoot();
+
+            WeaponShooted?.Invoke();
+        }
+    }
+    public void OnShoot()
+    {
+        if (IsThereWeaponInHands())
+        {
+            _currentWeapon.Shoot();
+
+            WeaponShooted?.Invoke();
+        }
+    }
+
+    public void OnInteract(InputAction.CallbackContext context)
+    {
+        if (!IsThereWeaponInHands())
+            PickupWeapon(_probablyWeaponGO);
+    }
+    public void OnInteract()
+    {
+        if (!IsThereWeaponInHands())
+            PickupWeapon(_probablyWeaponGO);
+    }
+
+    public bool IsThereWeaponInHands()
+    {
+        if (_currentWeapon == null)
+            return false;
+
+        return true;
+    }
+    private void SetWeaponGameObjectInWeaponHolder(ref GameObject weaponGameObject,ref GameObject parentGameObject)
+    {
+        _currentWeaponGO = weaponGameObject;
+
+        Rigidbody2D weaponRB2D = weaponGameObject.GetComponent<Rigidbody2D>();
+        PolygonCollider2D weaponCollider2D = weaponGameObject.GetComponent<PolygonCollider2D>();
+
+        weaponRB2D.simulated = false;
+        weaponCollider2D.enabled = false;
+
+        weaponGameObject.transform.SetParent(parentGameObject.transform);
+
+        ResetWeaponGameObjectTransforms(weaponGameObject);
+
+        GetWeaponComponentFromGameObject(weaponGameObject, out _currentWeapon);
+
+        void ResetWeaponGameObjectTransforms(GameObject weaponGO)
+        {
+            weaponGO.transform.localPosition = Vector3.zero;
+            weaponGO.transform.rotation = Quaternion.identity;
+            weaponGO.transform.localScale = Vector3.one;
+        }
+        void GetWeaponComponentFromGameObject(GameObject weaponGO, out Weapon weapon)
+        {
+            weapon = weaponGO.GetComponent<Weapon>();
+        }
+    }
+    private void UnSetWeaponGameObjectFromWeaponHolder(ref GameObject weaponGameObject,ref Weapon weapon)
+    {
+        weaponGameObject.transform.parent = null;
+
+        weaponGameObject.GetComponent<PolygonCollider2D>().enabled = true;
+        weaponGameObject.GetComponent<Rigidbody2D>().simulated = true;
+
+        weapon = null;
+        weaponGameObject = null;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -80,79 +207,5 @@ public class WeaponHandler : MonoBehaviour
     private void OnTriggerExit2D(Collider2D collision)
     {
         _probablyWeaponGO = null;
-    }
-
-    private void PickupWeapon(GameObject weapon)
-    {
-        if (_currentWeapon == null && _probablyWeaponGO != null)
-        {
-            Rigidbody2D weaponRB2D = weapon.GetComponent<Rigidbody2D>();
-            PolygonCollider2D weaponCollider2D = weapon.GetComponent<PolygonCollider2D>();
-
-            weaponRB2D.simulated = false;
-            weaponCollider2D.enabled = false;
-
-            weapon.transform.SetParent(_weaponHolder.transform);
-
-            weapon.transform.localPosition = Vector3.zero;
-            weapon.transform.rotation = Quaternion.identity;
-            weapon.transform.localScale = Vector3.one;
-
-            _currentWeapon = weapon.GetComponent<Weapon>();
-            _currentWeaponGO = weapon;
-
-            _currentWeapon.NoMoreBullets += DropWeapon;
-
-            PickUpedWeapon?.Invoke();
-        }
-    }
-    private void DropWeapon()
-    {
-        if (_currentWeapon != null)
-        {
-            _currentWeapon.NoMoreBullets -= DropWeapon;
-
-            _currentWeaponGO.transform.parent = null;
-
-            if (_currentWeapon.CurrentAmountOfBullets == 0)
-            {
-                DestroyWeapon(_currentWeaponGO);
-            }
-            else
-            {
-                _currentWeaponGO.GetComponent<Rigidbody2D>().simulated = true;
-                _currentWeaponGO.GetComponent<PolygonCollider2D>().enabled = true;
-            }
-
-            _currentWeapon = null;
-            _currentWeaponGO = null;
-            DropedWeapon?.Invoke();
-        }
-    }
-
-    public void OnDrop(InputAction.CallbackContext context)
-    {
-        if (_currentWeapon != null)
-            DropWeapon();
-    }
-    public void OnShoot(InputAction.CallbackContext context)
-    {
-        if (_currentWeapon != null)
-        {
-            WeaponShooted?.Invoke();
-            WeaponShootedWithName(_currentWeapon.Name);
-
-            _currentWeapon.Shoot();
-        }
-    }
-    public void OnInteract(InputAction.CallbackContext context)
-    {
-        PickupWeapon(_probablyWeaponGO);
-    }
-
-    private void DestroyWeapon(GameObject weaponGO)
-    {
-        WeaponDestroyed?.Invoke(weaponGO.transform.position);
-        Destroy(weaponGO);
     }
 }
