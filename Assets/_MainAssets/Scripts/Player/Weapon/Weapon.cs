@@ -6,7 +6,6 @@ using UnityEngine;
 public class Weapon : MonoBehaviour
 {
     public event Action NoMoreBullets;
-    public event Action<AudioClip> ShootedWithAudio;
     public event Action Shooted;
 
     public string Name;
@@ -18,7 +17,6 @@ public class Weapon : MonoBehaviour
     [Header("Debug")]
     [SerializeField] private GameObject _bulletSpawnPoint;
     [SerializeField] private GameObject _bulletPrefab;
-    [SerializeField] private AudioClip _shotSound;
 
     private void Awake()
     {
@@ -35,7 +33,6 @@ public class Weapon : MonoBehaviour
             Instantiate(_bulletPrefab, _bulletSpawnPoint.transform.position, rotation);
 
             CurrentAmountOfBullets--;
-            ShootedWithAudio?.Invoke(_shotSound);
             Shooted?.Invoke();
         }
         else
