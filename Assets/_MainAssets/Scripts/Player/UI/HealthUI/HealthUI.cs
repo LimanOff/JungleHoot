@@ -9,7 +9,7 @@ public class HealthUI : MonoBehaviour
 
     private void Awake()
     {
-        UpdateHealth(playerHS.CurrentHealth);
+        UpdateHealth(playerHS.MaxHealth);
     }
 
     private void OnEnable()

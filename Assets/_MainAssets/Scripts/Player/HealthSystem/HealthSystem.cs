@@ -24,8 +24,6 @@ public class HealthSystem : MonoBehaviour
         {
             _currentHealth = (value >= 0 && value <= MaxHealth) ? value : 0;
 
-            ReceivedDamage?.Invoke(_currentHealth);
-            Hited?.Invoke();
             if (_currentHealth == 0)
             {
                 Die?.Invoke();
@@ -37,6 +35,7 @@ public class HealthSystem : MonoBehaviour
     public void TakeDamage(float damage)
     {
         CurrentHealth -= damage;
-        Debug.Log($"Нанесён урон {damage}");
+        ReceivedDamage?.Invoke(CurrentHealth);
+        Hited?.Invoke();
     }
 }

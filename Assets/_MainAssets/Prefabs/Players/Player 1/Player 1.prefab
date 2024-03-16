@@ -1378,7 +1378,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: f797c48696654794d8e510fdf7821f64, type: 3}
   - {fileID: 8300000, guid: 24e395aed3765ce459158259921cc6ad, type: 3}
   _hurtSound: {fileID: 8300000, guid: f6b537356724acc4fa5d70e8b17f97b8, type: 3}
-  _healthSystem: {fileID: 0}
+  _healthSystem: {fileID: 7709446604237893657}
 --- !u!1 &8870094624742614304
 GameObject:
   m_ObjectHideFlags: 0
