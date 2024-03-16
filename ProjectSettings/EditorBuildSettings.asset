@@ -38,7 +38,4 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/_MainAssets/Scenes/DevLevel 9.unity
     guid: f81c622db1ab10a4b84c83f5cfacd363
-  - enabled: 1
-    path: Assets/_MainAssets/Scenes/New Scene.unity
-    guid: 501a44e69c29e5d4f8bee6ec9308291a
   m_configObjects: {}
