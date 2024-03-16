@@ -1,5 +1,6 @@
 using UnityEngine;
 
+[RequireComponent(typeof(Weapon))]
 public class WeaponSFX : MonoBehaviour
 {
     private Weapon _weapon;
