@@ -5,6 +5,7 @@ using UnityEngine;
 public class HealthSystem : MonoBehaviour
 {
     public event Action Die;
+    public event Action Hited;
     public Action<float> ReceivedDamage;
 
     [field: SerializeField] public float MaxHealth { get; private set; }
@@ -24,7 +25,7 @@ public class HealthSystem : MonoBehaviour
             _currentHealth = (value >= 0 && value <= MaxHealth) ? value : 0;
 
             ReceivedDamage?.Invoke(_currentHealth);
-
+            Hited?.Invoke();
             if (_currentHealth == 0)
             {
                 Die?.Invoke();

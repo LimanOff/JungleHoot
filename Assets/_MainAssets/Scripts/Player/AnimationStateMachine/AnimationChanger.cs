@@ -1,7 +1,7 @@
 using ModestTree;
 using UnityEngine;
 
-[RequireComponent(typeof(Mover)),
+[RequireComponent(typeof(Mover)),RequireComponent(typeof(HealthSystem)),
  RequireComponent(typeof(Jumper)), RequireComponent(typeof(WeaponHandler))]
 public class AnimationChanger : MonoBehaviour
 {
@@ -12,6 +12,7 @@ public class AnimationChanger : MonoBehaviour
     private Mover _mover;
     private Jumper _jumper;
     private WeaponHandler _weaponHandler;
+    private HealthSystem _healthSystem;
 
     private bool _hasWeapon;
     private bool _isInAir;
@@ -36,6 +37,8 @@ public class AnimationChanger : MonoBehaviour
         {
             _isInAir = false;
         };
+
+        _healthSystem.Hited += () => ChangeState("Hit");
     }
 
     private void OnDestroy()
@@ -56,6 +59,8 @@ public class AnimationChanger : MonoBehaviour
         {
             _isInAir = false;
         };
+
+        _healthSystem.Hited -= () => ChangeState("Hit");
     }
 
     private void InitializeComponents()
@@ -63,6 +68,7 @@ public class AnimationChanger : MonoBehaviour
         _hasWeapon = false;
         _isInAir = false;
 
+        _healthSystem = GetComponent<HealthSystem>();
         _mover = GetComponent<Mover>();
         _jumper = GetComponent<Jumper>();
         _weaponHandler = GetComponent<WeaponHandler>();
