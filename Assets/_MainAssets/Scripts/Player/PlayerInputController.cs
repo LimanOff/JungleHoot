@@ -1,30 +1,16 @@
 using UnityEngine;
 
-public class PlayerInputController : MonoBehaviour
+public class PlayerInputController
 {
-    public static GameInput GameInput { get; private set; }
-    private static PlayerInputController _instance;
+    public GameInput GameInput { get; private set; }
 
-    private void Awake()
+    public PlayerInputController()
     {
-        if (_instance == null)
-        {
-            _instance = this;
-            GameInput = new GameInput();
-
-            GameInput.Enable();
-        }
-        else if (_instance == this)
-        {
-            Destroy(gameObject);
-        }
-    }
-
-    private void OnEnable()
-    {
+        GameInput = new GameInput();
         GameInput.Enable();
     }
-    private void OnDisable()
+
+    ~PlayerInputController()
     {
         GameInput.Disable();
     }

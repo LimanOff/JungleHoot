@@ -2,11 +2,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine.InputSystem;
+using Zenject;
 
 [Serializable]
 public class KeyRebinder
 {
-    public event Action<string> KeyValueChanged;
+    public event Action<string, string> KeyValueChanged;
     public event Action<string> KeyAlreadyBounded;
     public event Action RebindStarted;
     public event Action RebindEnded;
@@ -18,15 +19,18 @@ public class KeyRebinder
     private string _oldKeyValue;
     private List<InputBinding> _oldBindings;
 
-    public void Initialize()
+    private PlayerInputController _inputController;
+
+    public void Initialize(PlayerInputController inputController)
     {
+        _inputController = inputController;
         KeyToRebind.RebindButton.onClick.AddListener(StartRebinding);
 
-        KeyToRebindSaver.LoadSavedKeyBinding(KeyToRebind, KeyToRebindIndex);
+        KeyToRebindSaver.LoadSavedKeyBinding(KeyToRebind, KeyToRebindIndex,ref inputController);
 
-        KeyValueChanged += (text) =>
+        KeyValueChanged += (text, textToDisplay) =>
         {
-            KeyToRebind.SetText(text);
+            KeyToRebind.SetText(textToDisplay);
             KeyToRebindSaver.SaveKeyBinding(text);
         };
     }
@@ -34,9 +38,9 @@ public class KeyRebinder
     ~KeyRebinder()
     {
         KeyToRebind.RebindButton.onClick.RemoveListener(StartRebinding);
-        KeyValueChanged -= (text) =>
+        KeyValueChanged -= (text, textToDisplay) =>
         {
-            KeyToRebind.SetText(text);
+            KeyToRebind.SetText(textToDisplay);
             KeyToRebindSaver.SaveKeyBinding(text);
         };
     }
@@ -44,14 +48,14 @@ public class KeyRebinder
     private void StartRebinding()
     {
         _oldKeyValue = KeyToRebind.RebindButtonText.text;
-        _oldBindings = PlayerInputController.GameInput.bindings.ToList();
+        _oldBindings = _inputController.GameInput.bindings.ToList();
 
         KeyToRebind.SetText("...");
 
-        PlayerInputController.GameInput.Disable();
+        _inputController.GameInput.Disable();
 
 
-        PlayerInputController.GameInput.FindAction(KeyToRebind.RebindInputActionReference.action.name).PerformInteractiveRebinding(KeyToRebindIndex).
+        _inputController.GameInput.FindAction(KeyToRebind.RebindInputActionReference.action.name).PerformInteractiveRebinding(KeyToRebindIndex).
                                                                             OnComplete(OnRebindingComplete)
                                                                             .WithTargetBinding(KeyToRebindIndex)
                                                                             .WithControlsExcluding("Mouse")
@@ -62,32 +66,34 @@ public class KeyRebinder
 
     private void OnRebindingComplete(InputActionRebindingExtensions.RebindingOperation operation)
     {
-        string newKeyPath = InputControlPath.ToHumanReadableString(
+        string newKeyPath = operation.action.bindings[KeyToRebindIndex].effectivePath;
+        string newKeyPathToDisplay = InputControlPath.ToHumanReadableString(
                                                     operation.action.bindings[KeyToRebindIndex].effectivePath,
                                                     InputControlPath.HumanReadableStringOptions.OmitDevice);
 
         if (!IsKeyAlreadyBound(newKeyPath))
         {
-            KeyValueChanged?.Invoke(newKeyPath);
+            KeyValueChanged?.Invoke(newKeyPath, newKeyPathToDisplay);
         }
         else
         {
             operation.action.RemoveBindingOverride(KeyToRebindIndex);
             KeyAlreadyBounded?.Invoke($"Клавиша ({newKeyPath}) уже занята");
-            KeyValueChanged?.Invoke($"{_oldKeyValue}");
+            KeyValueChanged?.Invoke(_oldKeyValue,_oldKeyValue);
         }
 
         operation.Dispose();
 
         RebindEnded?.Invoke();
 
-        PlayerInputController.GameInput.Enable();
+        _inputController.GameInput.Enable();
     }
 
     public void ResetKeyValue()
     {
-        PlayerInputController.GameInput.FindAction(KeyToRebind.RebindInputActionReference.action.name).RemoveAllBindingOverrides();
-        KeyValueChanged?.Invoke(KeyToRebind.RebindInputActionReference.action.bindings[KeyToRebindIndex].ToDisplayString());
+        _inputController.GameInput.FindAction(KeyToRebind.RebindInputActionReference.action.name).RemoveAllBindingOverrides();
+        string key = KeyToRebind.RebindInputActionReference.action.bindings[KeyToRebindIndex].ToDisplayString();
+        KeyValueChanged?.Invoke(key, key);
     }
 
     private bool IsKeyAlreadyBound(string keyPath)

@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Zenject;
 
 [RequireComponent(typeof(BoxCollider2D)), RequireComponent(typeof(Rigidbody2D))]
 public class Jumper : MonoBehaviour
@@ -15,6 +16,13 @@ public class Jumper : MonoBehaviour
     private BoxCollider2D _boxCollider2D;
     public float JumpHeight;
 
+    private PlayerInputController _inputController;
+
+    [Inject]
+    private void Construct(PlayerInputController inputController)
+    {
+        _inputController = inputController;
+    }
 
     private void Awake()
     {
@@ -23,11 +31,11 @@ public class Jumper : MonoBehaviour
 
         if (gameObject.name == "Player 1")
         {
-            PlayerInputController.GameInput.Player1.Jump.performed += OnJump;
+            _inputController.GameInput.Player1.Jump.performed += OnJump;
         }
         else
         {
-            PlayerInputController.GameInput.Player2.Jump2.performed += OnJump;
+            _inputController.GameInput.Player2.Jump2.performed += OnJump;
         }
     }
 
@@ -35,11 +43,11 @@ public class Jumper : MonoBehaviour
     {
         if (gameObject.name == "Player 1")
         {
-            PlayerInputController.GameInput.Player1.Jump.performed -= OnJump;
+            _inputController.GameInput.Player1.Jump.performed -= OnJump;
         }
         else
         {
-            PlayerInputController.GameInput.Player2.Jump2.performed -= OnJump;
+            _inputController.GameInput.Player2.Jump2.performed -= OnJump;
         }
     }
 

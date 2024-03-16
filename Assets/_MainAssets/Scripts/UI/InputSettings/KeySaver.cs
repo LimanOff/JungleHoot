@@ -7,7 +7,7 @@ public class KeySaver
 {
     [SerializeField] private string _key;
 
-    public void LoadSavedKeyBinding(Key keyToLoad, int keyBindIndex)
+    public void LoadSavedKeyBinding(Key keyToLoad, int keyBindIndex,ref PlayerInputController inputController)
     {
         if (PlayerPrefs.HasKey(_key))
         {
@@ -28,14 +28,12 @@ public class KeySaver
                     savedKeyPath = "Down Arrow";
                     break;
             }
-
-            PlayerInputController.GameInput.FindAction(keyToLoad.RebindInputActionReference.action.name).ApplyBindingOverride(keyBindIndex, savedKeyPath);
-
-            keyToLoad.SetText(keyToLoad.RebindInputActionReference.action.bindings[keyBindIndex].ToDisplayString());
+            inputController.GameInput.FindAction(keyToLoad.RebindInputActionReference.action.name).ApplyBindingOverride(keyBindIndex, savedKeyPath);
+            keyToLoad.SetText(inputController.GameInput.FindAction(keyToLoad.RebindInputActionReference.action.name).bindings[keyBindIndex].ToDisplayString());
         }
         else
         {
-            keyToLoad.SetText(keyToLoad.RebindInputActionReference.action.bindings[keyBindIndex].ToDisplayString());
+            keyToLoad.SetText(inputController.GameInput.FindAction(keyToLoad.RebindInputActionReference.action.name).bindings[keyBindIndex].ToDisplayString());
         }
     }
 

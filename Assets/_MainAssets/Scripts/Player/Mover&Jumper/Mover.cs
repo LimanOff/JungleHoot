@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using Zenject;
 
 [RequireComponent(typeof(Rigidbody2D))]
 public class Mover : MonoBehaviour
@@ -15,6 +16,14 @@ public class Mover : MonoBehaviour
 
     private float _horizontalMovement;
     private Vector2 _movementDirection;
+
+    private PlayerInputController _inputController;
+
+    [Inject]
+    private void Construct(PlayerInputController inputController)
+    {
+        _inputController = inputController;
+    }
 
     private void Awake()
     {
@@ -47,11 +56,11 @@ public class Mover : MonoBehaviour
     {
         if (gameObject.name == "Player 1")
         {
-            _horizontalMovement = PlayerInputController.GameInput.Player1.Move.ReadValue<float>();
+            _horizontalMovement = _inputController.GameInput.Player1.Move.ReadValue<float>();
         }
         else
         {
-            _horizontalMovement = PlayerInputController.GameInput.Player2.Move2.ReadValue<float>();
+            _horizontalMovement = _inputController.GameInput.Player2.Move2.ReadValue<float>();
         }
         Flip(_horizontalMovement);
 

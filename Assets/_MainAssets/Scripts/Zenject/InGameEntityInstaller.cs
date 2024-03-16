@@ -1,9 +1,10 @@
 using Zenject;
 
-public class EntityInstaller : MonoInstaller
+public class InGameEntityInstaller : MonoInstaller
 {
     public Timer Timer;
     public TimerUI TimerUI;
+
     public override void InstallBindings()
     {
         Container.Bind<Timer>().FromInstance(Timer).AsSingle();

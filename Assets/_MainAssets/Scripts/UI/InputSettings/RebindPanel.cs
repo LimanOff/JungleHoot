@@ -1,16 +1,19 @@
 using System.Collections.Generic;
 using UnityEngine;
+using Zenject;
 
 public class RebindPanel : MonoBehaviour
 {
     [SerializeField] private List<KeyRebinder> _keyRebinders = new List<KeyRebinder>();
     [SerializeField] private MessageDisplayer _messageDisplayer;
     [SerializeField] private GameObject _notTouchArea;
-    private void Awake()
+
+    [Inject]
+    public void Initialize(PlayerInputController inputController)
     {
         foreach (KeyRebinder keyRebinder in _keyRebinders)
         {
-            keyRebinder.Initialize();
+            keyRebinder.Initialize(inputController);
             keyRebinder.KeyAlreadyBounded += _messageDisplayer.ShowInfoMessage;
             keyRebinder.RebindStarted += () => _notTouchArea.SetActive(true);
             keyRebinder.RebindEnded += () => _notTouchArea.SetActive(false);

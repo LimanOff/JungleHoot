@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Zenject;
 
 [RequireComponent(typeof(HealthSystem))]
 public class WeaponHandler : MonoBehaviour
@@ -17,6 +18,14 @@ public class WeaponHandler : MonoBehaviour
     [Header("Debug")]
     [SerializeField] private GameObject _weaponHolder;
     [SerializeField] private GameObject _weaponFreeParent;
+
+    private PlayerInputController _inputController;
+
+    [Inject]
+    private void Construct(PlayerInputController inputController)
+    {
+        _inputController = inputController;
+    }
 
     private void Awake()
     {
@@ -35,15 +44,15 @@ public class WeaponHandler : MonoBehaviour
 
         if (gameObject.name == "Player 1")
         {
-            PlayerInputController.GameInput.Player1.Drop.performed += OnDrop;
-            PlayerInputController.GameInput.Player1.Shoot.performed += OnShoot;
-            PlayerInputController.GameInput.Player1.Interact.performed += OnInteract;
+            _inputController.GameInput.Player1.Drop.performed += OnDrop;
+            _inputController.GameInput.Player1.Shoot.performed += OnShoot;
+            _inputController.GameInput.Player1.Interact.performed += OnInteract;
         }
         else
         {
-            PlayerInputController.GameInput.Player2.Drop2.performed += OnDrop;
-            PlayerInputController.GameInput.Player2.Shoot2.performed += OnShoot;
-            PlayerInputController.GameInput.Player2.Interact2.performed += OnInteract;
+            _inputController.GameInput.Player2.Drop2.performed += OnDrop;
+            _inputController.GameInput.Player2.Shoot2.performed += OnShoot;
+            _inputController.GameInput.Player2.Interact2.performed += OnInteract;
         }
     }
     private void UnSubscribeFromEvents()
@@ -62,15 +71,15 @@ public class WeaponHandler : MonoBehaviour
 
         if (gameObject.name == "Player 1")
         {
-            PlayerInputController.GameInput.Player1.Drop.performed -= OnDrop;
-            PlayerInputController.GameInput.Player1.Shoot.performed -= OnShoot;
-            PlayerInputController.GameInput.Player1.Interact.performed -= OnInteract;
+            _inputController.GameInput.Player1.Drop.performed -= OnDrop;
+            _inputController.GameInput.Player1.Shoot.performed -= OnShoot;
+            _inputController.GameInput.Player1.Interact.performed -= OnInteract;
         }
         else
         {
-            PlayerInputController.GameInput.Player2.Drop2.performed -= OnDrop;
-            PlayerInputController.GameInput.Player2.Shoot2.performed -= OnShoot;
-            PlayerInputController.GameInput.Player2.Interact2.performed -= OnInteract;
+            _inputController.GameInput.Player2.Drop2.performed -= OnDrop;
+            _inputController.GameInput.Player2.Shoot2.performed -= OnShoot;
+            _inputController.GameInput.Player2.Interact2.performed -= OnInteract;
         }
     }
 
@@ -81,11 +90,15 @@ public class WeaponHandler : MonoBehaviour
         {
             SetWeaponGameObjectInWeaponHolder(ref weaponGameObject,ref _weaponHolder);
 
-            _currentWeapon.NoMoreBullets += () =>
+            if(_currentWeaponGO != null)
             {
-                _currentWeaponGO.tag = "Untagged";
-                OnDrop();
-            };
+                _currentWeapon.NoMoreBullets += () =>
+                {
+                    _currentWeaponGO.tag = "Untagged";
+                    OnDrop();
+                };
+            }
+            
 
             WeaponPickedUp?.Invoke();
         }
