@@ -4,11 +4,8 @@ using UnityEngine.InputSystem;
 
 public class WeaponHandler : MonoBehaviour
 {
-    public event Action PickUpedWeapon;
-    public event Action DropedWeapon;
-    public event Action<Vector3> WeaponDestroyed;
-
-    public event Action<string> WeaponShootedWithName;
+    public event Action WeaponPickedUp;
+    public event Action WeaponDropped;
     public event Action WeaponShooted;
 
     private Weapon _currentWeapon;

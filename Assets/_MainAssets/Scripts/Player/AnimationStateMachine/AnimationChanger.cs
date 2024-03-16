@@ -20,8 +20,8 @@ public class AnimationChanger : MonoBehaviour
     {
         InitializeComponents();
 
-        _weaponHandler.PickUpedWeapon += () => _hasWeapon = true;
-        _weaponHandler.DropedWeapon += () => _hasWeapon = false;
+        _weaponHandler.WeaponPickedUp += () => _hasWeapon = true;
+        _weaponHandler.WeaponDropped += () => _hasWeapon = false;
 
         _mover.PlayerIsMoving += () => ChangeState("Run");
 
@@ -40,8 +40,8 @@ public class AnimationChanger : MonoBehaviour
 
     private void OnDestroy()
     {
-        _weaponHandler.PickUpedWeapon -= () => _hasWeapon = true;
-        _weaponHandler.DropedWeapon -= () => _hasWeapon = false;
+        _weaponHandler.WeaponPickedUp -= () => _hasWeapon = true;
+        _weaponHandler.WeaponDropped -= () => _hasWeapon = false;
 
         _mover.PlayerIsMoving -= () => ChangeState("Run");
 
