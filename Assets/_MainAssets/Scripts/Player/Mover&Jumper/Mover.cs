@@ -4,8 +4,7 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
 public class Mover : MonoBehaviour
 {
-    public event Action PlayerIsMoving;
-    public event Action PlayerIsStay;
+    public event Action<float> PlayerIsMoving;
 
     private Rigidbody2D _rigidbody2D;
 
@@ -56,9 +55,6 @@ public class Mover : MonoBehaviour
         }
         Flip(_horizontalMovement);
 
-        if (_horizontalMovement == 0)
-            PlayerIsStay?.Invoke();
-        else
-            PlayerIsMoving?.Invoke();
+        PlayerIsMoving?.Invoke(_horizontalMovement);
     }
 }
