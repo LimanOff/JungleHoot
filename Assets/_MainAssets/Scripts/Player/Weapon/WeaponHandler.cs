@@ -161,7 +161,7 @@ public class WeaponHandler : MonoBehaviour
 
         ResetWeaponGameObjectTransforms(weaponGameObject);
 
-        GetWeaponComponentFromGameObject(weaponGameObject, out _currentWeapon);
+        _currentWeapon = GetWeaponComponentFromGameObject(weaponGameObject);
 
         void ResetWeaponGameObjectTransforms(GameObject weaponGO)
         {
@@ -169,9 +169,9 @@ public class WeaponHandler : MonoBehaviour
             weaponGO.transform.rotation = Quaternion.identity;
             weaponGO.transform.localScale = Vector3.one;
         }
-        void GetWeaponComponentFromGameObject(GameObject weaponGO, out Weapon weapon)
+        Weapon GetWeaponComponentFromGameObject(GameObject weaponGO)
         {
-            weapon = weaponGO.GetComponent<Weapon>();
+            return weaponGO.GetComponent<Weapon>();
         }
     }
     private void UnSetWeaponGameObjectFromWeaponHolder(ref GameObject weaponGameObject,ref Weapon weapon)
