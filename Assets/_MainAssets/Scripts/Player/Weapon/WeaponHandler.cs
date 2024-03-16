@@ -7,7 +7,6 @@ public class WeaponHandler : MonoBehaviour
 {
     public event Action WeaponPickedUp;
     public event Action WeaponDropped;
-    public event Action WeaponShooted;
 
     private Weapon _currentWeapon;
     private GameObject _currentWeaponGO;
@@ -120,8 +119,6 @@ public class WeaponHandler : MonoBehaviour
         if (IsThereWeaponInHands())
         {
             _currentWeapon.Shoot();
-
-            WeaponShooted?.Invoke();
         }
     }
     public void OnShoot()
@@ -129,8 +126,6 @@ public class WeaponHandler : MonoBehaviour
         if (IsThereWeaponInHands())
         {
             _currentWeapon.Shoot();
-
-            WeaponShooted?.Invoke();
         }
     }
 
