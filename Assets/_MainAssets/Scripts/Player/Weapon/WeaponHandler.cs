@@ -63,7 +63,7 @@ public class WeaponHandler : MonoBehaviour
         {
             _currentWeapon.NoMoreBullets -= OnNoMoreBullets;
         }
-        
+
 
         if (gameObject.name == "Player 1")
         {
@@ -84,13 +84,13 @@ public class WeaponHandler : MonoBehaviour
     {
         if (weaponGameObject != null)
         {
-            SetWeaponGameObjectInWeaponHolder(ref weaponGameObject,ref _weaponHolder);
+            SetWeaponGameObjectInWeaponHolder(ref weaponGameObject, ref _weaponHolder);
 
-            if(_currentWeaponGO != null)
+            if (_currentWeaponGO != null)
             {
                 _currentWeapon.NoMoreBullets += OnNoMoreBullets;
             }
-            
+
 
             WeaponPickedUp?.Invoke();
         }
@@ -143,11 +143,8 @@ public class WeaponHandler : MonoBehaviour
 
     private void OnNoMoreBullets()
     {
-        _currentWeapon.NoMoreBullets -= () =>
-        {
-            _currentWeaponGO.tag = "Untagged";
-            OnDropKeyPressed();
-        };
+        _currentWeaponGO.tag = "Untagged";
+        OnDropKeyPressed();
     }
 
     public bool IsThereWeaponInHands()
@@ -157,7 +154,7 @@ public class WeaponHandler : MonoBehaviour
 
         return true;
     }
-    private void SetWeaponGameObjectInWeaponHolder(ref GameObject weaponGameObject,ref GameObject parentGameObject)
+    private void SetWeaponGameObjectInWeaponHolder(ref GameObject weaponGameObject, ref GameObject parentGameObject)
     {
         _currentWeaponGO = weaponGameObject;
 
@@ -184,7 +181,7 @@ public class WeaponHandler : MonoBehaviour
             return weaponGO.GetComponent<Weapon>();
         }
     }
-    private void UnSetWeaponGameObjectFromWeaponHolder(ref GameObject weaponGameObject,ref Weapon weapon)
+    private void UnSetWeaponGameObjectFromWeaponHolder(ref GameObject weaponGameObject, ref Weapon weapon)
     {
         weaponGameObject.transform.parent = null;
 
