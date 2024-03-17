@@ -3,17 +3,20 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Item
+  - WeaponHolder
+  - Obstacle
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Jumpable
   - Water
   - UI
-  - 
-  - 
-  - 
+  - NotInteractWithWorld
+  - NotJumpable
+  - Player
   - 
   - 
   - 
