@@ -21,9 +21,9 @@ public class AudioSettingsPanel : MonoBehaviour
 
     private void ValidateComponents()
     {
-        Assert.IsNotNull(_masterAudioMixerGroup, "(AudioSettingsPanel/ValidateComponents) Группа мастера звуков не задана");
-        Assert.IsNotNull(_soundAudioMixerGroup, "(AudioSettingsPanel/ValidateComponents) Группа звука не задана");
-        Assert.IsNotNull(_musicAudioMixerGroup, "(AudioSettingsPanel/ValidateComponents) Группа музыки не задана");
+        Assert.IsNotNull(_masterAudioMixerGroup, "(_audioSettingsPanel/ValidateComponents) Группа мастера звуков не задана");
+        Assert.IsNotNull(_soundAudioMixerGroup, "(_audioSettingsPanel/ValidateComponents) Группа звука не задана");
+        Assert.IsNotNull(_musicAudioMixerGroup, "(_audioSettingsPanel/ValidateComponents) Группа музыки не задана");
     }
 
     public void ChangeMasterVolume(GameObject sliderGameObject)

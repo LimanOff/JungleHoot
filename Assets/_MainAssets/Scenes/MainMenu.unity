@@ -1215,10 +1215,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b782aef96ba22964bbe637e169a58dbe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MainPanel: {fileID: 1864222096}
-  SettingsPanel: {fileID: 538696073}
-  AudioSettingsPanel: {fileID: 758043940}
-  InputSettingsPanel: {fileID: 2817918800492111872}
+  _mainPanel: {fileID: 1864222096}
+  _settingsPanel: {fileID: 538696073}
+  _audioSettingsPanel: {fileID: 758043940}
+  _inputSettingsPanel: {fileID: 2817918800492111872}
 --- !u!1 &1044844571
 GameObject:
   m_ObjectHideFlags: 0

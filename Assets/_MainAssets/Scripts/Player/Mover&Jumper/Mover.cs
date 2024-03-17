@@ -49,13 +49,16 @@ public class Mover : MonoBehaviour
 
     private void Flip(float movementDirection)
     {
-        if (movementDirection > 0)
+        if (Time.timeScale == 1)
         {
-            _playerBody.localScale = new Vector3(1, 1, 1);
-        }
-        else if (movementDirection < 0)
-        {
-            _playerBody.localScale = new Vector3(1 * -1, 1, 1 * -1);
+            if (movementDirection > 0)
+            {
+                _playerBody.localScale = new Vector3(1, 1, 1);
+            }
+            else if (movementDirection < 0)
+            {
+                _playerBody.localScale = new Vector3(1 * -1, 1, 1 * -1);
+            }
         }
     }
 
