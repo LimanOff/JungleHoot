@@ -1,13 +1,15 @@
-using System.Collections;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
+using Random = UnityEngine.Random;
 public class Respawner : MonoBehaviour
 {
+    public event Action<Vector3> PlayerRespawned;
+
     [SerializeField] private List<Transform> _respawnPoints;
     private HealthSystem _playerHS;
 
-    private int _randomPoint;
     private int _lastPoint;
 
     private void Awake()
@@ -26,13 +28,27 @@ public class Respawner : MonoBehaviour
 
     private void RespawnPlayer()
     {
-        _randomPoint = Random.Range(0, _respawnPoints.Count);
-        if (_randomPoint == _lastPoint)
+        if (_respawnPoints.Count == 0)
         {
-            _randomPoint = Random.Range(0, _respawnPoints.Count);
+            Debug.LogError("(Respawner/RespawnPlayer) Нет доступных точек появления.");
+            return;
         }
-        _lastPoint = _randomPoint;
 
-        transform.position = _respawnPoints[_randomPoint].position;        
+        int respawnCount = _respawnPoints.Count-1;
+        int randomPoint;
+        do
+        {
+            randomPoint = Random.Range(0, respawnCount);
+        } while (randomPoint == _lastPoint);
+
+        _lastPoint = randomPoint;
+
+        SetPlayerPosition(_respawnPoints[randomPoint].position);        
+    }
+
+    private void SetPlayerPosition(Vector3 position)
+    {
+        transform.position = position;
+        PlayerRespawned?.Invoke(position);
     }
 }
