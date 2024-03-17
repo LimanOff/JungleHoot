@@ -15,4 +15,12 @@ public class MainMenuCanvasBootstrap : MonoBehaviour
         AudioSettingsPanel.SetActive(false);
         InputSettingsPanel.SetActive(false);
     }
+
+    public void OpenAllPanels()
+    {
+        MainPanel.SetActive(true);
+        SettingsPanel.SetActive(true);
+        AudioSettingsPanel.SetActive(true);
+        InputSettingsPanel.SetActive(true);
+    }
 }

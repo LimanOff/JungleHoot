@@ -17,6 +17,7 @@ public class MainMenuBootstrap : MonoBehaviour
 
     private void Awake()
     {
+        _mainMenuCanvasBootstrap.OpenAllPanels();
         _rebindPanels.ForEach(rp => rp.Initialize(_inputController));
         _mainMenuCanvasBootstrap.Initialize();
     }
