@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class PlayerDeathCounter : MonoBehaviour
 {
-    public event Action<int> DeathCounterUpdated;
+    public event Action<int> DeathCountChanged;
 
     private HealthSystem _playerHS;
 
@@ -14,21 +14,24 @@ public class PlayerDeathCounter : MonoBehaviour
         private set
         {
             _deathCount = value > 0 ? value : 0;
-            DeathCounterUpdated?.Invoke(_deathCount);
+            DeathCountChanged?.Invoke(_deathCount);
         }
     }
 
     private void Awake()
     {
         _playerHS = GetComponent<HealthSystem>();
+
+        _playerHS.Die += IncrementDeathCount;
     }
 
-    private void OnEnable()
+    private void OnDestroy()
     {
-        _playerHS.Die += delegate { DeathCount++; };
+        _playerHS.Die -= IncrementDeathCount;
     }
-    private void OnDisable()
+
+    private void IncrementDeathCount()
     {
-        _playerHS.Die -= delegate { DeathCount++; };
+        DeathCount++;
     }
 }

@@ -8,17 +8,17 @@ public class PlayerDeathCounterUI : MonoBehaviour
     [SerializeField] private PlayerDeathCounter _playerDeathCounter;
     [SerializeField] private Text _counterTXT;
 
-    private void OnEnable()
+    private void Awake()
     {
-        _playerDeathCounter.DeathCounterUpdated += DisplayDeathCounter;
+        _playerDeathCounter.DeathCountChanged += UpdateDeathCounterText;
     }
 
-    private void OnDisable()
+    private void OnDestroy()
     {
-        _playerDeathCounter.DeathCounterUpdated -= DisplayDeathCounter;
+        _playerDeathCounter.DeathCountChanged -= UpdateDeathCounterText;
     }
 
-    private void DisplayDeathCounter(int countToDisplay)
+    private void UpdateDeathCounterText(int countToDisplay)
     {
         _counterTXT.text = $"{countToDisplay}";
     }
