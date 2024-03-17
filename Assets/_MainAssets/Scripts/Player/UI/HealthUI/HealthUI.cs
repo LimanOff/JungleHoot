@@ -9,20 +9,25 @@ public class HealthUI : MonoBehaviour
 
     private void Awake()
     {
-        UpdateHealth(playerHS.MaxHealth);
+        UpdateHealthText(playerHS.MaxHealth);
     }
 
     private void OnEnable()
     {
-        playerHS.ReceivedDamage += UpdateHealth;
+        playerHS.ReceivedDamage += UpdateHealthText;
     }
 
     private void OnDisable()
     {
-        playerHS.ReceivedDamage -= UpdateHealth;
+        playerHS.ReceivedDamage -= UpdateHealthText;
     }
 
-    private void UpdateHealth(float healthValue)
+    private void OnDestroy()
+    {
+        playerHS.ReceivedDamage -= UpdateHealthText;
+    }
+
+    private void UpdateHealthText(float healthValue)
     {
         playerTXT.text = $"{healthValue} HP";
     }
