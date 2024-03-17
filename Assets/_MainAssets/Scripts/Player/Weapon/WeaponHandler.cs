@@ -40,46 +40,42 @@ public class WeaponHandler : MonoBehaviour
 
     private void SubscribeToEvents()
     {
-        _healthSystem.Die += OnDrop;
+        _healthSystem.Die += OnDropKeyPressed;
 
         if (gameObject.name == "Player 1")
         {
-            _inputController.GameInput.Player1.Drop.performed += OnDrop;
-            _inputController.GameInput.Player1.Shoot.performed += OnShoot;
-            _inputController.GameInput.Player1.Interact.performed += OnInteract;
+            _inputController.GameInput.Player1.Drop.performed += OnDropKeyPressed;
+            _inputController.GameInput.Player1.Shoot.performed += OnShootKeyPressed;
+            _inputController.GameInput.Player1.Interact.performed += OnInteractKeyPressed;
         }
         else
         {
-            _inputController.GameInput.Player2.Drop2.performed += OnDrop;
-            _inputController.GameInput.Player2.Shoot2.performed += OnShoot;
-            _inputController.GameInput.Player2.Interact2.performed += OnInteract;
+            _inputController.GameInput.Player2.Drop2.performed += OnDropKeyPressed;
+            _inputController.GameInput.Player2.Shoot2.performed += OnShootKeyPressed;
+            _inputController.GameInput.Player2.Interact2.performed += OnInteractKeyPressed;
         }
     }
     private void UnSubscribeFromEvents()
     {
-        _healthSystem.Die -= OnDrop;
+        _healthSystem.Die -= OnDropKeyPressed;
 
         if (IsThereWeaponInHands())
         {
-            _currentWeapon.NoMoreBullets -= () =>
-            {
-                _currentWeaponGO.tag = "Untagged";
-                OnDrop();
-            };
+            _currentWeapon.NoMoreBullets -= OnNoMoreBullets;
         }
         
 
         if (gameObject.name == "Player 1")
         {
-            _inputController.GameInput.Player1.Drop.performed -= OnDrop;
-            _inputController.GameInput.Player1.Shoot.performed -= OnShoot;
-            _inputController.GameInput.Player1.Interact.performed -= OnInteract;
+            _inputController.GameInput.Player1.Drop.performed -= OnDropKeyPressed;
+            _inputController.GameInput.Player1.Shoot.performed -= OnShootKeyPressed;
+            _inputController.GameInput.Player1.Interact.performed -= OnInteractKeyPressed;
         }
         else
         {
-            _inputController.GameInput.Player2.Drop2.performed -= OnDrop;
-            _inputController.GameInput.Player2.Shoot2.performed -= OnShoot;
-            _inputController.GameInput.Player2.Interact2.performed -= OnInteract;
+            _inputController.GameInput.Player2.Drop2.performed -= OnDropKeyPressed;
+            _inputController.GameInput.Player2.Shoot2.performed -= OnShootKeyPressed;
+            _inputController.GameInput.Player2.Interact2.performed -= OnInteractKeyPressed;
         }
     }
 
@@ -92,11 +88,7 @@ public class WeaponHandler : MonoBehaviour
 
             if(_currentWeaponGO != null)
             {
-                _currentWeapon.NoMoreBullets += () =>
-                {
-                    _currentWeaponGO.tag = "Untagged";
-                    OnDrop();
-                };
+                _currentWeapon.NoMoreBullets += OnNoMoreBullets;
             }
             
 
@@ -105,36 +97,32 @@ public class WeaponHandler : MonoBehaviour
     }
     private void DropWeapon()
     {
-        _currentWeapon.NoMoreBullets -= () =>
-        {
-            _currentWeaponGO.tag = "Untagged";
-            OnDrop();
-        };
+        _currentWeapon.NoMoreBullets -= OnNoMoreBullets;
 
         UnSetWeaponGameObjectFromWeaponHolder(ref _currentWeaponGO, ref _currentWeapon);
 
         WeaponDropped?.Invoke();
     }
 
-    public void OnDrop(InputAction.CallbackContext context)
+    private void OnDropKeyPressed(InputAction.CallbackContext context)
     {
         if (IsThereWeaponInHands())
             DropWeapon();
     }
-    public void OnDrop()
+    private void OnDropKeyPressed()
     {
         if (IsThereWeaponInHands())
             DropWeapon();
     }
 
-    public void OnShoot(InputAction.CallbackContext context)
+    private void OnShootKeyPressed(InputAction.CallbackContext context)
     {
         if (IsThereWeaponInHands())
         {
             _currentWeapon.Shoot();
         }
     }
-    public void OnShoot()
+    private void OnShootKeyPressed()
     {
         if (IsThereWeaponInHands())
         {
@@ -142,15 +130,24 @@ public class WeaponHandler : MonoBehaviour
         }
     }
 
-    public void OnInteract(InputAction.CallbackContext context)
+    private void OnInteractKeyPressed(InputAction.CallbackContext context)
     {
         if (!IsThereWeaponInHands())
             PickupWeapon(_probablyWeaponGO);
     }
-    public void OnInteract()
+    private void OnInteractKeyPressed()
     {
         if (!IsThereWeaponInHands())
             PickupWeapon(_probablyWeaponGO);
+    }
+
+    private void OnNoMoreBullets()
+    {
+        _currentWeapon.NoMoreBullets -= () =>
+        {
+            _currentWeaponGO.tag = "Untagged";
+            OnDropKeyPressed();
+        };
     }
 
     public bool IsThereWeaponInHands()
