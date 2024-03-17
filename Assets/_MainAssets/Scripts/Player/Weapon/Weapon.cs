@@ -1,11 +1,11 @@
-using DG.Tweening;
+using ModestTree;
 using System;
 using System.Collections;
-using Unity.VisualScripting;
 using UnityEngine;
 
-[RequireComponent(typeof(Rigidbody2D), typeof(PolygonCollider2D),
-    typeof(CircleCollider2D))]
+[RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent(typeof(PolygonCollider2D))]
+[RequireComponent(typeof(CircleCollider2D))]
 public class Weapon : MonoBehaviour
 {
     public event Action NoMoreBullets;
@@ -14,7 +14,19 @@ public class Weapon : MonoBehaviour
     public string Name;
 
     public int MaxAmountOfBullets;
-    [field: SerializeField] public int CurrentAmountOfBullets { get; private set; }
+
+    private int _currentAmountOfBullets;
+    public int CurrentAmountOfBullets
+    {
+        get => _currentAmountOfBullets;
+        private set
+        {
+            _currentAmountOfBullets = Mathf.Clamp(value, 0, MaxAmountOfBullets);
+
+            if (_currentAmountOfBullets == 0)
+                NoMoreBullets?.Invoke();
+        }
+    }
 
 
     [Header("Debug")]
@@ -26,17 +38,23 @@ public class Weapon : MonoBehaviour
 
     private void Awake()
     {
+        ValidateComponents();
         CurrentAmountOfBullets = MaxAmountOfBullets;
 
-        NoMoreBullets += () => _fadeOutCoroutine = StartCoroutine(FadeOut(2f));
+        NoMoreBullets += FadeOutSprite;
     }
 
     private void OnDestroy()
     {
-        if (_fadeOutCoroutine != null)
-            StopCoroutine(_fadeOutCoroutine);
+        NoMoreBullets -= FadeOutSprite;
+    }
 
-        NoMoreBullets -= () => _fadeOutCoroutine = StartCoroutine(FadeOut(2f));
+    private void ValidateComponents()
+    {
+        Assert.IsNotNull(_bulletSpawnPoint,"(Weapon/ValidateComponents) Не задана точка появления пули.");
+        Assert.IsNotNull(_bulletPrefab, "(Weapon/ValidateComponents) Не задан префаб пули.");
+
+        Assert.IsNotNull(_spriteRenderer, "(Weapon/ValidateComponents) Не задан компонент SpriteRenderer.");
     }
 
     public void Shoot()
@@ -72,5 +90,13 @@ public class Weapon : MonoBehaviour
         }
 
         Destroy(gameObject);
+    }
+
+    private void FadeOutSprite()
+    {
+        if (_fadeOutCoroutine != null)
+            StopCoroutine(_fadeOutCoroutine);
+
+        _fadeOutCoroutine = StartCoroutine(FadeOut(2f));
     }
 }
