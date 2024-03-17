@@ -7,7 +7,7 @@ public class InGameEntityInstaller : MonoInstaller
 
     public override void InstallBindings()
     {
-        Container.Bind<Timer>().FromInstance(Timer).AsSingle();
+        Container.Bind<Timer>().FromInstance(Timer).AsSingle().NonLazy();
         Container.Bind<TimerUI>().FromInstance(TimerUI).AsSingle();
         Container.Bind<LoaderNewLevels>().AsSingle().NonLazy();
 
