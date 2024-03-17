@@ -52,7 +52,7 @@ public class AnimationChanger : MonoBehaviour
 
     private void SubscribeEvents()
     {
-        _mover.PlayerIsMoving += HandleMovementAnimation;
+        _mover.PlayerMovementChanged += HandleMovementAnimation;
         _weaponHandler.WeaponPickedUp += OnWeaponPickedUp;
         _weaponHandler.WeaponDropped += OnWeaponDropped;
         _jumper.PlayerInAir += OnPlayerInAir;
@@ -62,7 +62,7 @@ public class AnimationChanger : MonoBehaviour
 
     private void UnSubscribeEvents()
     {
-        _mover.PlayerIsMoving -= HandleMovementAnimation;
+        _mover.PlayerMovementChanged -= HandleMovementAnimation;
         _weaponHandler.WeaponPickedUp -= OnWeaponPickedUp;
         _weaponHandler.WeaponDropped -= OnWeaponDropped;
         _jumper.PlayerInAir -= OnPlayerInAir;

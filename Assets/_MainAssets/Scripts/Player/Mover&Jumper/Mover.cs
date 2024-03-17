@@ -5,7 +5,7 @@ using Zenject;
 [RequireComponent(typeof(Rigidbody2D))]
 public class Mover : MonoBehaviour
 {
-    public event Action<float> PlayerIsMoving;
+    public event Action<float> PlayerMovementChanged;
 
     private Rigidbody2D _rigidbody2D;
 
@@ -64,6 +64,6 @@ public class Mover : MonoBehaviour
         }
         Flip(_horizontalMovement);
 
-        PlayerIsMoving?.Invoke(_horizontalMovement);
+        PlayerMovementChanged?.Invoke(_horizontalMovement);
     }
 }
