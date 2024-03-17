@@ -1,3 +1,4 @@
+using ModestTree;
 using System;
 using UnityEngine;
 using Zenject;
@@ -28,6 +29,12 @@ public class Mover : MonoBehaviour
     private void Awake()
     {
         _rigidbody2D = GetComponent<Rigidbody2D>();
+        ValidateComponents();
+    }
+
+    private void ValidateComponents()
+    {
+        Assert.IsNotNull(_playerBody,"(Mover/ValidateComponents) Тело игрока не было задано.");
     }
 
     private void Update()
