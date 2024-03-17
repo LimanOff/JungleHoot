@@ -55,8 +55,8 @@ public class AnimationChanger : MonoBehaviour
         _mover.PlayerMovementChanged += HandleMovementAnimation;
         _weaponHandler.WeaponPickedUp += OnWeaponPickedUp;
         _weaponHandler.WeaponDropped += OnWeaponDropped;
-        _jumper.PlayerInAir += OnPlayerInAir;
-        _jumper.PlayerOnGround += OnPlayerOnGround;
+        _jumper.PlayerEnteredAir += OnPlayerInAir;
+        _jumper.PlayerGrounded += OnPlayerOnGround;
         _healthSystem.Hited += OnPlayerHit;
     }
 
@@ -65,8 +65,8 @@ public class AnimationChanger : MonoBehaviour
         _mover.PlayerMovementChanged -= HandleMovementAnimation;
         _weaponHandler.WeaponPickedUp -= OnWeaponPickedUp;
         _weaponHandler.WeaponDropped -= OnWeaponDropped;
-        _jumper.PlayerInAir -= OnPlayerInAir;
-        _jumper.PlayerOnGround -= OnPlayerOnGround;
+        _jumper.PlayerEnteredAir -= OnPlayerInAir;
+        _jumper.PlayerGrounded -= OnPlayerOnGround;
         _healthSystem.Hited -= OnPlayerHit;
     }
 

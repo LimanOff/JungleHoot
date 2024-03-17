@@ -6,9 +6,9 @@ using Zenject;
 [RequireComponent(typeof(BoxCollider2D)), RequireComponent(typeof(Rigidbody2D))]
 public class Jumper : MonoBehaviour
 {
-    public event Action PlayerStartJump;
-    public event Action PlayerInAir;
-    public event Action PlayerOnGround;
+    public event Action PlayerStartedJump;
+    public event Action PlayerEnteredAir;
+    public event Action PlayerGrounded;
     public event Action PlayerJumped;
 
     [SerializeField] private LayerMask JumpableObjects;
@@ -26,34 +26,19 @@ public class Jumper : MonoBehaviour
 
     private void Awake()
     {
-        _boxCollider2D = GetComponent<BoxCollider2D>();
-        _rigidbody2D = GetComponent<Rigidbody2D>();
+        InitializeComponents();
 
-        if (gameObject.name == "Player 1")
-        {
-            _inputController.GameInput.Player1.Jump.performed += OnJump;
-        }
-        else
-        {
-            _inputController.GameInput.Player2.Jump2.performed += OnJump;
-        }
+        SubscribeEvents();
     }
 
     private void OnDestroy()
     {
-        if (gameObject.name == "Player 1")
-        {
-            _inputController.GameInput.Player1.Jump.performed -= OnJump;
-        }
-        else
-        {
-            _inputController.GameInput.Player2.Jump2.performed -= OnJump;
-        }
+        UnSubscribeEvents();
     }
 
     private void Jump()
     {
-        PlayerStartJump?.Invoke();
+        PlayerStartedJump?.Invoke();
 
         float jumpForce = (Mathf.Sqrt(JumpHeight * (Physics2D.gravity.y * _rigidbody2D.gravityScale) * -2)) * _rigidbody2D.mass;
         _rigidbody2D.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
@@ -61,7 +46,7 @@ public class Jumper : MonoBehaviour
         PlayerJumped?.Invoke();
     }
 
-    public void OnJump(InputAction.CallbackContext context)
+    public void HandleJumpInput(InputAction.CallbackContext context)
     {
         if (IsOnSurface())
             Jump();
@@ -73,25 +58,46 @@ public class Jumper : MonoBehaviour
         float offset = .1f;
         Vector2 rayOrigin = new Vector2(transform.position.x, colliderBottom - offset);
 
-        if (Physics2D.Raycast(rayOrigin, Vector2.down, .7f, JumpableObjects))
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
+        return Physics2D.Raycast(rayOrigin, Vector2.down, .7f, JumpableObjects);
     }
 
     private void Update()
     {
         if (!IsOnSurface())
         {
-            PlayerInAir?.Invoke();
+            PlayerEnteredAir?.Invoke();
         }
         else
         {
-            PlayerOnGround?.Invoke();
+            PlayerGrounded?.Invoke();
+        }
+    }
+
+    private void InitializeComponents()
+    {
+        _boxCollider2D = GetComponent<BoxCollider2D>();
+        _rigidbody2D = GetComponent<Rigidbody2D>();
+    }
+    private void SubscribeEvents()
+    {
+        if (gameObject.name == "Player 1")
+        {
+            _inputController.GameInput.Player1.Jump.performed += HandleJumpInput;
+        }
+        else
+        {
+            _inputController.GameInput.Player2.Jump2.performed += HandleJumpInput;
+        }
+    }
+    private void UnSubscribeEvents()
+    {
+        if (gameObject.name == "Player 1")
+        {
+            _inputController.GameInput.Player1.Jump.performed -= HandleJumpInput;
+        }
+        else
+        {
+            _inputController.GameInput.Player2.Jump2.performed -= HandleJumpInput;
         }
     }
 }
