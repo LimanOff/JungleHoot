@@ -1,5 +1,3 @@
-using UnityEngine;
-
 public class PlayerInputController
 {
     public GameInput GameInput { get; private set; }
