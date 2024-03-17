@@ -1,3 +1,4 @@
+using ModestTree;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -15,15 +16,19 @@ public class Respawner : MonoBehaviour
     private void Awake()
     {
         _playerHS = GetComponent<HealthSystem>();
-    }
 
-    private void OnEnable()
-    {
         _playerHS.Die += RespawnPlayer;
+
+        ValidateComponents();
     }
     private void OnDisable()
     {
         _playerHS.Die -= RespawnPlayer;
+    }
+
+    private void ValidateComponents()
+    {
+        Assert.IsNotNull(_respawnPoints,"(Respawner/ValidateComponents) Не заданы точки возрождения игрока.");
     }
 
     private void RespawnPlayer()
