@@ -7,13 +7,24 @@ public class Bullet : MonoBehaviour
     public float BulletSpeed;
     public int Damage;
 
+    private RaycastHit2D _hit2D;
+
     private void Update()
     {
-        RaycastHit2D hit2D = Physics2D.Raycast(transform.position, transform.up, 0.1f);
+        MoveBullet();
+        HandleCollision();
+    }
 
-        if (hit2D.collider != null)
+    public void BlowUp()
+    {
+        Destroy(gameObject);
+    }
+
+    private void HandleCollision()
+    {
+        if (_hit2D = Physics2D.Raycast(transform.position, transform.up, 0.1f))
         {
-            var hittenGO = hit2D.collider.gameObject;
+            var hittenGO = _hit2D.collider.gameObject;
 
             if (hittenGO.tag == "Player")
             {
@@ -25,12 +36,10 @@ public class Bullet : MonoBehaviour
                 BlowUp();
             }
         }
-
-        transform.Translate(Vector3.up * BulletSpeed * Time.deltaTime);
     }
 
-    public void BlowUp()
+    private void MoveBullet()
     {
-        Destroy(gameObject);
+        transform.Translate(Vector3.up * BulletSpeed * Time.deltaTime);
     }
 }
