@@ -1416,6 +1416,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <MaxHealth>k__BackingField: 100
+  _invincibleModeDurationSeconds: 2
 --- !u!114 &2966473052125557400
 MonoBehaviour:
   m_ObjectHideFlags: 0

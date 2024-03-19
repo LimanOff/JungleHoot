@@ -80,7 +80,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: Shotgun
   MaxAmountOfBullets: 5
-  <CurrentAmountOfBullets>k__BackingField: 0
   _bulletSpawnPoint: {fileID: 8985939516351198076}
   _bulletPrefab: {fileID: 393048919279342122, guid: 12f3cddf29fa8e3479de77e53b46c3a2, type: 3}
   _spriteRenderer: {fileID: 7027715072653188435}

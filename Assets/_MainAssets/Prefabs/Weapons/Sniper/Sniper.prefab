@@ -110,8 +110,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Name: Sniper
-  MaxAmountOfBullets: 3
-  <CurrentAmountOfBullets>k__BackingField: 0
+  MaxAmountOfBullets: 2
   _bulletSpawnPoint: {fileID: 1753889889224766569}
   _bulletPrefab: {fileID: 393048919279342122, guid: 0cf763aee7e095d479322ba9b488eb70, type: 3}
   _spriteRenderer: {fileID: 7623179004878348387}
