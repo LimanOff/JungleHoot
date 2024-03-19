@@ -1306,6 +1306,7 @@ GameObject:
   - component: {fileID: 5847209020999913527}
   - component: {fileID: 802837673080832358}
   - component: {fileID: 3061472986228283220}
+  - component: {fileID: 8340332940850403997}
   m_Layer: 3
   m_Name: Player 2
   m_TagString: Player
@@ -1523,3 +1524,24 @@ MonoBehaviour:
   _audioSource: {fileID: 1616814762317198386}
   _pickUpWeaponSound: {fileID: 8300000, guid: 31c386b62eb5d9544997416279bb7d12, type: 3}
   _dropWeaponSound: {fileID: 8300000, guid: 5d95f6aa468ef244189821a44a44d849, type: 3}
+--- !u!114 &8340332940850403997
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9099421430193539296}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb6168644a3f5a44285d66375d669a71, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _playerBodyPartsSpriteRenderers:
+  - {fileID: 3604295557509973570}
+  - {fileID: 7160670342721541985}
+  - {fileID: 8257217896375683111}
+  - {fileID: 7693337263111435900}
+  - {fileID: 830869968317776364}
+  - {fileID: 3493562578188146169}
+  - {fileID: 4683139664052559862}
+  <IsBlinking>k__BackingField: 0

@@ -1139,6 +1139,7 @@ GameObject:
   - component: {fileID: 4567198758077430597}
   - component: {fileID: 6720429174837663366}
   - component: {fileID: 2429518412964859124}
+  - component: {fileID: 4518481849799107610}
   m_Layer: 3
   m_Name: Player 1
   m_TagString: Player
@@ -1380,6 +1381,27 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 24e395aed3765ce459158259921cc6ad, type: 3}
   _hurtSound: {fileID: 8300000, guid: f6b537356724acc4fa5d70e8b17f97b8, type: 3}
   _healthSystem: {fileID: 7709446604237893657}
+--- !u!114 &4518481849799107610
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8689147392458023370}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb6168644a3f5a44285d66375d669a71, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _playerBodyPartsSpriteRenderers:
+  - {fileID: 2536398763837896528}
+  - {fileID: 5663176306732198946}
+  - {fileID: 2166744924007862068}
+  - {fileID: 3280590306086982837}
+  - {fileID: 5185006801952084029}
+  - {fileID: 8876965587825528637}
+  - {fileID: 2553357873454524106}
+  <IsBlinking>k__BackingField: 0
 --- !u!1 &8870094624742614304
 GameObject:
   m_ObjectHideFlags: 0
