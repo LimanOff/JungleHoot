@@ -47,6 +47,6 @@ public class AudioSettingsPanel : MonoBehaviour
 
     private void ChangeVolume(Slider slider, AudioMixerGroup mixerGroup, string nameOfParameter)
     {
-        mixerGroup.audioMixer.SetFloat(nameOfParameter, slider.value);
+        mixerGroup.audioMixer.SetFloat(nameOfParameter, Mathf.Lerp(-80,0,slider.value));
     }
 }
