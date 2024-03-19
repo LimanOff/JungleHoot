@@ -9,8 +9,8 @@ public class HealthSystem : MonoBehaviour
     public event Action Hited;
     public Action<float> ReceivedDamage;
 
-    public Action InvincibleModeActivated;
-    public Action InvincibleModeDeactivated;
+    public event Action InvincibleModeActivated;
+    public event Action InvincibleModeDeactivated;
 
     [field: SerializeField] public float MaxHealth { get; private set; }
 
