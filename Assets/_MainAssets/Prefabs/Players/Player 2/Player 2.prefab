@@ -1447,7 +1447,7 @@ MonoBehaviour:
   JumpableObjects:
     serializedVersion: 2
     m_Bits: 8
-  JumpHeight: 7
+  JumpHeight: 10
 --- !u!114 &791220636783508367
 MonoBehaviour:
   m_ObjectHideFlags: 0

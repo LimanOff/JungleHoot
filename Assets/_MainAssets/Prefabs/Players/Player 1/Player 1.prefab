@@ -1138,7 +1138,6 @@ GameObject:
   - component: {fileID: 4119914579242293480}
   - component: {fileID: 4567198758077430597}
   - component: {fileID: 6720429174837663366}
-  - component: {fileID: 2429518412964859124}
   - component: {fileID: 4518481849799107610}
   m_Layer: 3
   m_Name: Player 1
@@ -1280,7 +1279,7 @@ MonoBehaviour:
   JumpableObjects:
     serializedVersion: 2
     m_Bits: 8
-  JumpHeight: 7
+  JumpHeight: 10
 --- !u!114 &4198301938438943268
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1357,30 +1356,6 @@ MonoBehaviour:
   _audioSource: {fileID: 5770001124367728994}
   _pickUpWeaponSound: {fileID: 8300000, guid: 31c386b62eb5d9544997416279bb7d12, type: 3}
   _dropWeaponSound: {fileID: 8300000, guid: 5d95f6aa468ef244189821a44a44d849, type: 3}
---- !u!114 &2429518412964859124
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8689147392458023370}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e23dc6589728eb64ca7aa300e320b056, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _hitAudioSource: {fileID: 4256259499587301123}
-  _walkAudioSource: {fileID: 8123911271276721219}
-  _footSounds:
-  - {fileID: 8300000, guid: 180e5707fb08d904382ee44051df6932, type: 3}
-  - {fileID: 8300000, guid: b82c91b228c657b41928ef4ea49e8117, type: 3}
-  - {fileID: 8300000, guid: 2e0eda7b40874ee4e99e0ec4c5dffd71, type: 3}
-  - {fileID: 8300000, guid: f53da933b02bdd847a0ca3ac41a2549a, type: 3}
-  - {fileID: 8300000, guid: b5aa4fce35bf2834db54bd2edc235b69, type: 3}
-  - {fileID: 8300000, guid: f797c48696654794d8e510fdf7821f64, type: 3}
-  - {fileID: 8300000, guid: 24e395aed3765ce459158259921cc6ad, type: 3}
-  _hurtSound: {fileID: 8300000, guid: f6b537356724acc4fa5d70e8b17f97b8, type: 3}
-  _healthSystem: {fileID: 7709446604237893657}
 --- !u!114 &4518481849799107610
 MonoBehaviour:
   m_ObjectHideFlags: 0
