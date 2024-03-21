@@ -1314,10 +1314,6 @@ PrefabInstance:
       propertyPath: _loadNewLevelButton
       value: 
       objectReference: {fileID: 21425291}
-    - target: {fileID: 1833176206776413422, guid: bc8b2947a8d669745a542291f03eeef5, type: 3}
-      propertyPath: orthographic size
-      value: 25.269085
-      objectReference: {fileID: 0}
     - target: {fileID: 4735331130712481472, guid: bc8b2947a8d669745a542291f03eeef5, type: 3}
       propertyPath: JumpHeight
       value: 10
@@ -1364,15 +1360,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5216443739170025554, guid: bc8b2947a8d669745a542291f03eeef5, type: 3}
       propertyPath: StartTimeInSeconds
-      value: 30
+      value: 120
       objectReference: {fileID: 0}
     - target: {fileID: 5837880378882196801, guid: bc8b2947a8d669745a542291f03eeef5, type: 3}
       propertyPath: m_Name
       value: ----- Entities ----
-      objectReference: {fileID: 0}
-    - target: {fileID: 6237565660890849931, guid: bc8b2947a8d669745a542291f03eeef5, type: 3}
-      propertyPath: WidthOrHeight
-      value: 0.524
       objectReference: {fileID: 0}
     - target: {fileID: 6332266488590256183, guid: bc8b2947a8d669745a542291f03eeef5, type: 3}
       propertyPath: m_LocalPosition.x
