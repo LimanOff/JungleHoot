@@ -67,12 +67,12 @@ public class HealthSystem : MonoBehaviour
         _invincibleModeCoroutine = StartCoroutine(InvincibleModeFor(_invincibleModeDurationSeconds));
     }
 
-    private void ActivateInvincibleMode()
+    public void ActivateInvincibleMode()
     {
         _canTakeDamage = false;
         InvincibleModeActivated?.Invoke();
     }
-    private void DeactivateInvincibleMode()
+    public void DeactivateInvincibleMode()
     {
         _canTakeDamage = true;
         InvincibleModeDeactivated?.Invoke();
