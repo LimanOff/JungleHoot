@@ -1,3 +1,4 @@
+using ModestTree;
 using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
@@ -11,6 +12,8 @@ public class RebindPanel : MonoBehaviour
     [Inject]
     public void Initialize(PlayerInputController inputController)
     {
+        ValidateComponents();
+
         foreach (KeyRebinder keyRebinder in _keyRebinders)
         {
             keyRebinder.Initialize(inputController);
@@ -39,5 +42,11 @@ public class RebindPanel : MonoBehaviour
     private void DropSavedKeys()
     {
         PlayerPrefs.DeleteAll();
+    }
+
+    private void ValidateComponents()
+    {
+        Assert.IsNotNull(_notTouchArea, "(RebindPanel/ValidateComponents) NotTouchArea не задана");
+        Assert.IsNotNull(_messageDisplayer, "(RebindPanel/ValidateComponents) MessageDisplayer не задан");
     }
 }
