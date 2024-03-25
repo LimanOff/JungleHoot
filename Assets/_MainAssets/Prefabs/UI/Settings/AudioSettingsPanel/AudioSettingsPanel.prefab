@@ -764,8 +764,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: 47206bf63247a5e45954ba70d2d9d9cd, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -1581,6 +1581,9 @@ MonoBehaviour:
   _masterAudioMixerGroup: {fileID: 24300002, guid: 47eae6c586016994989bc38b92761336, type: 2}
   _soundAudioMixerGroup: {fileID: 1156639134881694586, guid: 47eae6c586016994989bc38b92761336, type: 2}
   _musicAudioMixerGroup: {fileID: 5936260663105436384, guid: 47eae6c586016994989bc38b92761336, type: 2}
+  _masterSlider: {fileID: 2880079805594601212}
+  _soundSlider: {fileID: 8705158552995961806}
+  _musicSlider: {fileID: 771626953769433039}
 --- !u!1 &7764648856802501691
 GameObject:
   m_ObjectHideFlags: 0

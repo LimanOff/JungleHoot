@@ -8,10 +8,10 @@ public class LoaderNewLevels
 
     public void LoadNewLevel()
     {
-        _randomLvl = Random.Range(1, 11);
+        _randomLvl = Random.Range(1, 6);
         if (_randomLvl == _lastLvl)
         {
-            _randomLvl = Random.Range(1, 11);
+            _randomLvl = Random.Range(1, 6);
         }
         _lastLvl = _randomLvl;
 

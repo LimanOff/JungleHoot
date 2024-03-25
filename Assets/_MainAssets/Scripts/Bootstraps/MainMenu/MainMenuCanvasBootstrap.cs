@@ -1,26 +1,36 @@
+using ModestTree;
 using UnityEngine;
 
 public class MainMenuCanvasBootstrap : MonoBehaviour
 {
     [Header("Panels")]
-    [SerializeField] private GameObject MainPanel;
-    [SerializeField] private GameObject SettingsPanel;
-    [SerializeField] private GameObject AudioSettingsPanel;
-    [SerializeField] private GameObject InputSettingsPanel;
+    [SerializeField] private GameObject _mainPanel;
+    [SerializeField] private GameObject _settingsPanel;
+    [SerializeField] private GameObject _audioSettingsPanel;
+    [SerializeField] private GameObject _inputSettingsPanel;
 
     public void Initialize()
     {
-        MainPanel.SetActive(true);
-        SettingsPanel.SetActive(false);
-        AudioSettingsPanel.SetActive(false);
-        InputSettingsPanel.SetActive(false);
+        ValidatePanels();
+        _mainPanel.SetActive(true);
+        _settingsPanel.SetActive(false);
+        _audioSettingsPanel.SetActive(false);
+        _inputSettingsPanel.SetActive(false);
     }
 
     public void OpenAllPanels()
     {
-        MainPanel.SetActive(true);
-        SettingsPanel.SetActive(true);
-        AudioSettingsPanel.SetActive(true);
-        InputSettingsPanel.SetActive(true);
+        _mainPanel.SetActive(true);
+        _settingsPanel.SetActive(true);
+        _audioSettingsPanel.SetActive(true);
+        _inputSettingsPanel.SetActive(true);
+    }
+
+    private void ValidatePanels()
+    {
+        Assert.IsNotNull(_mainPanel,"(MainMenuCanvasBootstrap/ValidatePanels) Не задан MainPanel");
+        Assert.IsNotNull(_settingsPanel, "(MainMenuCanvasBootstrap/ValidatePanels) Не задан SettingsPanel");
+        Assert.IsNotNull(_audioSettingsPanel, "(MainMenuCanvasBootstrap/ValidatePanels) Не задан AudioSettingsPanel");
+        Assert.IsNotNull(_inputSettingsPanel, "(MainMenuCanvasBootstrap/ValidatePanels) Не задан InputSettingsPanel");
     }
 }

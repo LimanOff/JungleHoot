@@ -106,25 +106,25 @@ public class WeaponHandler : MonoBehaviour
 
     private void OnDropKeyPressed(InputAction.CallbackContext context)
     {
-        if (IsThereWeaponInHands())
+        if (IsThereWeaponInHands() && Time.timeScale == 1)
             DropWeapon();
     }
     private void OnDropKeyPressed()
     {
-        if (IsThereWeaponInHands())
+        if (IsThereWeaponInHands() && Time.timeScale == 1)
             DropWeapon();
     }
 
     private void OnShootKeyPressed(InputAction.CallbackContext context)
     {
-        if (IsThereWeaponInHands())
+        if (IsThereWeaponInHands() && Time.timeScale == 1)
         {
             _currentWeapon.Shoot();
         }
     }
     private void OnShootKeyPressed()
     {
-        if (IsThereWeaponInHands())
+        if (IsThereWeaponInHands() && Time.timeScale == 1)
         {
             _currentWeapon.Shoot();
         }
@@ -132,12 +132,12 @@ public class WeaponHandler : MonoBehaviour
 
     private void OnInteractKeyPressed(InputAction.CallbackContext context)
     {
-        if (!IsThereWeaponInHands())
+        if (!IsThereWeaponInHands() && Time.timeScale == 1)
             PickupWeapon(_probablyWeaponGO);
     }
     private void OnInteractKeyPressed()
     {
-        if (!IsThereWeaponInHands())
+        if (!IsThereWeaponInHands() && Time.timeScale == 1)
             PickupWeapon(_probablyWeaponGO);
     }
 
@@ -159,7 +159,7 @@ public class WeaponHandler : MonoBehaviour
         _currentWeaponGO = weaponGameObject;
 
         Rigidbody2D weaponRB2D = weaponGameObject.GetComponent<Rigidbody2D>();
-        PolygonCollider2D weaponCollider2D = weaponGameObject.GetComponent<PolygonCollider2D>();
+        CircleCollider2D weaponCollider2D = weaponGameObject.GetComponent<CircleCollider2D>();
 
         weaponRB2D.simulated = false;
         weaponCollider2D.enabled = false;
@@ -185,7 +185,7 @@ public class WeaponHandler : MonoBehaviour
     {
         weaponGameObject.transform.parent = null;
 
-        weaponGameObject.GetComponent<PolygonCollider2D>().enabled = true;
+        weaponGameObject.GetComponent<CircleCollider2D>().enabled = true;
         weaponGameObject.GetComponent<Rigidbody2D>().simulated = true;
 
         weapon = null;
