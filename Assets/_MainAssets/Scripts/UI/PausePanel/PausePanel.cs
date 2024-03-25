@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Zenject;
@@ -40,6 +39,12 @@ public class PausePanel : MonoBehaviour
     public void ClosePanel()
     {
         gameObject.SetActive(false);
+        Time.timeScale = 1;
+    }
+
+    public void ClosePanel(GameObject PausePanel)
+    {
+        PausePanel.SetActive(false);
         Time.timeScale = 1;
     }
 }
