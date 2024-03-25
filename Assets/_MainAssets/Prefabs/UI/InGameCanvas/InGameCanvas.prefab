@@ -2705,6 +2705,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2482500561159132149, guid: 1e828db89cc769d48a8ae19d6c64a259, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 3030621318663602406}
+    - target: {fileID: 2482500561159132149, guid: 1e828db89cc769d48a8ae19d6c64a259, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: ClosePanel
+      objectReference: {fileID: 0}
+    - target: {fileID: 2482500561159132149, guid: 1e828db89cc769d48a8ae19d6c64a259, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: PausePanel, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 2482500561159132149, guid: 1e828db89cc769d48a8ae19d6c64a259, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgument
+      value: 
+      objectReference: {fileID: 7190951512663344075}
     - target: {fileID: 3096785094284091046, guid: 1e828db89cc769d48a8ae19d6c64a259, type: 3}
       propertyPath: m_Name
       value: SettingsPanel

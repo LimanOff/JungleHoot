@@ -1542,7 +1542,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 25.269085
+  orthographic size: 19.280485
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -1881,10 +1881,6 @@ PrefabInstance:
       propertyPath: _respawnPoints.Array.data[7]
       value: 
       objectReference: {fileID: 8119334747230919110}
-    - target: {fileID: 5666726305343008628, guid: 266877814863e1c428e4297a1741afcf, type: 3}
-      propertyPath: m_Material
-      value: 
-      objectReference: {fileID: 6200000, guid: 6abb22a7da51e884a8f45372f3a70f1b, type: 2}
     - target: {fileID: 6616905466105435313, guid: 266877814863e1c428e4297a1741afcf, type: 3}
       propertyPath: m_LocalPosition.x
       value: 5.42
@@ -2006,10 +2002,6 @@ PrefabInstance:
       propertyPath: m_Size.y
       value: 4.552987
       objectReference: {fileID: 0}
-    - target: {fileID: 3777507479789452520, guid: c902cb92a4169cd48ae2078ce35b5538, type: 3}
-      propertyPath: m_Material
-      value: 
-      objectReference: {fileID: 6200000, guid: 6abb22a7da51e884a8f45372f3a70f1b, type: 2}
     - target: {fileID: 3777507479789452520, guid: c902cb92a4169cd48ae2078ce35b5538, type: 3}
       propertyPath: m_Offset.y
       value: 1.7278857
