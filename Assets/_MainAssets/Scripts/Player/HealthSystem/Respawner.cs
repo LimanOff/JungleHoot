@@ -43,7 +43,7 @@ public class Respawner : MonoBehaviour
         int randomPoint;
         do
         {
-            randomPoint = Random.Range(0, respawnCount);
+            randomPoint = Random.Range(0, respawnCount+1);
         } while (randomPoint == _lastPoint);
 
         _lastPoint = randomPoint;
