@@ -575,10 +575,10 @@ MonoBehaviour:
   m_FillRect: {fileID: 4296065672810894951}
   m_HandleRect: {fileID: 679905741588102691}
   m_Direction: 0
-  m_MinValue: 0
-  m_MaxValue: 1
+  m_MinValue: -80
+  m_MaxValue: 0
   m_WholeNumbers: 0
-  m_Value: 1
+  m_Value: 0
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
@@ -677,10 +677,10 @@ MonoBehaviour:
   m_FillRect: {fileID: 6191560057453888255}
   m_HandleRect: {fileID: 5170603369013468240}
   m_Direction: 0
-  m_MinValue: 0
-  m_MaxValue: 1
+  m_MinValue: -80
+  m_MaxValue: 0
   m_WholeNumbers: 0
-  m_Value: 1
+  m_Value: 0
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
@@ -1314,10 +1314,10 @@ MonoBehaviour:
   m_FillRect: {fileID: 3279791732786589259}
   m_HandleRect: {fileID: 4195018049013649481}
   m_Direction: 0
-  m_MinValue: 0
-  m_MaxValue: 1
+  m_MinValue: -80
+  m_MaxValue: 0
   m_WholeNumbers: 0
-  m_Value: 1
+  m_Value: 0
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
@@ -1581,6 +1581,9 @@ MonoBehaviour:
   _masterAudioMixerGroup: {fileID: 24300002, guid: 47eae6c586016994989bc38b92761336, type: 2}
   _soundAudioMixerGroup: {fileID: 1156639134881694586, guid: 47eae6c586016994989bc38b92761336, type: 2}
   _musicAudioMixerGroup: {fileID: 5936260663105436384, guid: 47eae6c586016994989bc38b92761336, type: 2}
+  _masterSlider: {fileID: 2880079805594601212}
+  _soundSlider: {fileID: 8705158552995961806}
+  _musicSlider: {fileID: 771626953769433039}
 --- !u!1 &7764648856802501691
 GameObject:
   m_ObjectHideFlags: 0

@@ -10,6 +10,11 @@ public class AudioSettingsPanel : MonoBehaviour
     [SerializeField] private AudioMixerGroup _soundAudioMixerGroup;
     [SerializeField] private AudioMixerGroup _musicAudioMixerGroup;
 
+    [Header("Sliders")]
+    [SerializeField] private Slider _masterSlider;
+    [SerializeField] private Slider _soundSlider;
+    [SerializeField] private Slider _musicSlider;
+
     private const string MasterVolume = "MasterVolume";
     private const string SoundVolume = "SoundVolume";
     private const string MusicVolume = "MusicVolume";
@@ -17,6 +22,7 @@ public class AudioSettingsPanel : MonoBehaviour
     private void Awake()
     {
         ValidateComponents();
+        InitializeSliders();
     }
 
     private void ValidateComponents()
@@ -24,7 +30,27 @@ public class AudioSettingsPanel : MonoBehaviour
         Assert.IsNotNull(_masterAudioMixerGroup, "(_audioSettingsPanel/ValidateComponents) Группа мастера звуков не задана");
         Assert.IsNotNull(_soundAudioMixerGroup, "(_audioSettingsPanel/ValidateComponents) Группа звука не задана");
         Assert.IsNotNull(_musicAudioMixerGroup, "(_audioSettingsPanel/ValidateComponents) Группа музыки не задана");
+
+        Assert.IsNotNull(_masterSlider, "(_audioSettingsPanel/ValidateComponents) Слайдер мастера звуков не задан");
+        Assert.IsNotNull(_soundSlider, "(_audioSettingsPanel/ValidateComponents) Слайдер звука не задан");
+        Assert.IsNotNull(_musicSlider, "(_audioSettingsPanel/ValidateComponents) Слайдер музыки не задан");
     }
+
+    private void InitializeSliders()
+    {
+        InitializeSlider(_masterSlider,MasterVolume, _masterAudioMixerGroup);
+        InitializeSlider(_soundSlider, SoundVolume, _soundAudioMixerGroup);
+        InitializeSlider(_musicSlider, MusicVolume, _musicAudioMixerGroup);
+    }
+
+    private void InitializeSlider(Slider slider, string nameOfParameter, AudioMixerGroup audioMixerGroup)
+    {
+        float newSliderValue = 1f;
+
+        audioMixerGroup.audioMixer.GetFloat(nameOfParameter, out newSliderValue);
+        slider.value = newSliderValue;
+    }
+    
 
     public void ChangeMasterVolume(GameObject sliderGameObject)
     {
@@ -47,6 +73,6 @@ public class AudioSettingsPanel : MonoBehaviour
 
     private void ChangeVolume(Slider slider, AudioMixerGroup mixerGroup, string nameOfParameter)
     {
-        mixerGroup.audioMixer.SetFloat(nameOfParameter, Mathf.Lerp(-80,0,slider.value));
+        mixerGroup.audioMixer.SetFloat(nameOfParameter, slider.value);
     }
 }
