@@ -1,8 +1,7 @@
-using System;
+п»їusing System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine.InputSystem;
-using Zenject;
 
 [Serializable]
 public class KeyRebinder
@@ -20,6 +19,8 @@ public class KeyRebinder
     private List<InputBinding> _oldBindings;
 
     private PlayerInputController _inputController;
+
+    List<InputBinding> r;
 
     public void Initialize(PlayerInputController inputController)
     {
@@ -48,6 +49,7 @@ public class KeyRebinder
     private void StartRebinding()
     {
         _oldKeyValue = KeyToRebind.RebindButtonText.text;
+
         _oldBindings = _inputController.GameInput.bindings.ToList();
 
         KeyToRebind.SetText("...");
@@ -78,7 +80,7 @@ public class KeyRebinder
         else
         {
             operation.action.RemoveBindingOverride(KeyToRebindIndex);
-            KeyAlreadyBounded?.Invoke($"Клавиша ({newKeyPath}) уже занята");
+            KeyAlreadyBounded?.Invoke($"пїЅпїЅпїЅпїЅпїЅпїЅпїЅ ({newKeyPath}) пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ");
             KeyValueChanged?.Invoke(_oldKeyValue,_oldKeyValue);
         }
 
@@ -98,12 +100,15 @@ public class KeyRebinder
 
     private bool IsKeyAlreadyBound(string keyPath)
     {
+        string key = InputControlPath.ToHumanReadableString(keyPath, InputControlPath.HumanReadableStringOptions.OmitDevice);
+
         foreach (var keybinding in _oldBindings)
         {
             string keyName = InputControlPath.ToHumanReadableString(
                                                                 keybinding.effectivePath,
                                                                 InputControlPath.HumanReadableStringOptions.OmitDevice);
-            if (keyName == keyPath)
+
+            if (keyName == key)
                 return true;
         }
 
