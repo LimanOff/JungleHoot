@@ -208,6 +208,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LoopMusic:
   - {fileID: 8300000, guid: 3a70f35d57e58ca45ba490930cd4a3e0, type: 3}
+  - {fileID: 8300000, guid: 0afc85ed1fe703b4fb70deedf2e0548a, type: 3}
+  - {fileID: 8300000, guid: 0afc85ed1fe703b4fb70deedf2e0548a, type: 3}
+  - {fileID: 8300000, guid: 0afc85ed1fe703b4fb70deedf2e0548a, type: 3}
+  - {fileID: 8300000, guid: 0afc85ed1fe703b4fb70deedf2e0548a, type: 3}
+  - {fileID: 8300000, guid: 0afc85ed1fe703b4fb70deedf2e0548a, type: 3}
   LoopMusicAudioSource: {fileID: 892961010693913559}
 --- !u!1 &9094061056310722028
 GameObject:
