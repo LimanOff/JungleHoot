@@ -158,11 +158,10 @@ public class WeaponHandler : MonoBehaviour
     {
         _currentWeaponGO = weaponGameObject;
 
-        Rigidbody2D weaponRB2D = weaponGameObject.GetComponent<Rigidbody2D>();
-        CircleCollider2D weaponCollider2D = weaponGameObject.GetComponent<CircleCollider2D>();
+        weaponGameObject.GetComponent<CircleCollider2D>().enabled = false;
+        weaponGameObject.GetComponent<PolygonCollider2D>().enabled = false;
 
-        weaponRB2D.simulated = false;
-        weaponCollider2D.enabled = false;
+        weaponGameObject.GetComponent<Rigidbody2D>().isKinematic = true;
 
         weaponGameObject.transform.SetParent(parentGameObject.transform);
 
@@ -186,7 +185,9 @@ public class WeaponHandler : MonoBehaviour
         weaponGameObject.transform.parent = null;
 
         weaponGameObject.GetComponent<CircleCollider2D>().enabled = true;
-        weaponGameObject.GetComponent<Rigidbody2D>().simulated = true;
+        weaponGameObject.GetComponent<PolygonCollider2D>().enabled = true;
+
+        weaponGameObject.GetComponent<Rigidbody2D>().isKinematic = false;
 
         weapon = null;
         weaponGameObject = null;
