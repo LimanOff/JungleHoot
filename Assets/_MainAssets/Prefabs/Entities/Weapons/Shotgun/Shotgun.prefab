@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 8887171492125732006}
   - component: {fileID: 4508245397938794503}
   - component: {fileID: 4508928381055368284}
+  - component: {fileID: 4781597142241890519}
   m_Layer: 0
   m_Name: Shotgun
   m_TagString: Item
@@ -293,6 +294,51 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _shootSound: {fileID: 8300000, guid: 2711cca9c50ffcc4f93fdd4d74ef65a3, type: 3}
   _noAmmoSound: {fileID: 8300000, guid: 47556db4c22dbe94cb913597ca14d963, type: 3}
+--- !u!61 &4781597142241890519
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2720595561394696351}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 3.3482807, y: 0.66297066}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 4.4652753, y: 0.8105798}
+  m_EdgeRadius: 0
 --- !u!1 &6809219076430118080
 GameObject:
   m_ObjectHideFlags: 0

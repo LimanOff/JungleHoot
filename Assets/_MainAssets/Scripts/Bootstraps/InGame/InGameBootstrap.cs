@@ -22,7 +22,6 @@ public class InGameBootstrap : MonoBehaviour
         ValidateComponents();
 
         _gameCanvasBootstrap.OpenAllPanels();
-        _rebindPanels.ForEach(rp => rp.Initialize(_inputController));
         _gameCanvasBootstrap.Initialize();
     }
 

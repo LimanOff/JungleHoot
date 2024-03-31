@@ -16,16 +16,16 @@ public class KeySaver
             switch (savedKeyPath)
             {
                 case "←":
-                    savedKeyPath = "Left Arrow";
+                    savedKeyPath = "<Keyboard>/leftArrow";
                     break;
                 case "→":
-                    savedKeyPath = "Right Arrow";
+                    savedKeyPath = "<Keyboard>/rightArrow";
                     break;
                 case "↑":
-                    savedKeyPath = "Up Arrow";
+                    savedKeyPath = "<Keyboard>/upArrow";
                     break;
                 case "↓":
-                    savedKeyPath = "Down Arrow";
+                    savedKeyPath = "<Keyboard>/downArrow";
                     break;
             }
             inputController.GameInput.FindAction(keyToLoad.RebindInputActionReference.action.name).ApplyBindingOverride(keyBindIndex, savedKeyPath);
@@ -42,16 +42,16 @@ public class KeySaver
         switch (keyPath)
         {
             case "←":
-                keyPath = "Left Arrow";
+                keyPath = "<Keyboard>/leftArrow";
                 break;
             case "→":
-                keyPath = "Right Arrow";
+                keyPath = "<Keyboard>/rightArrow";
                 break;
             case "↑":
-                keyPath = "Up Arrow";
+                keyPath = "<Keyboard>/upArrow";
                 break;
             case "↓":
-                keyPath = "Down Arrow";
+                keyPath = "<Keyboard>/downArrow";
                 break;
         }
         PlayerPrefs.SetString(_key, keyPath);

@@ -14,7 +14,12 @@ public class Jumper : MonoBehaviour
     [SerializeField] private LayerMask JumpableObjects;
     private Rigidbody2D _rigidbody2D;
     private BoxCollider2D _boxCollider2D;
+
     public float JumpHeight;
+
+    private float _lastGroundedTime;
+    private bool _canJump;
+    private float _coyoteTime = 0.1f;
 
     private PlayerInputController _inputController;
 
@@ -48,28 +53,38 @@ public class Jumper : MonoBehaviour
 
     public void HandleJumpInput(InputAction.CallbackContext context)
     {
-        if (IsOnSurface())
+        if (_canJump)
             Jump();
     }
 
     private bool IsOnSurface()
     {
         float colliderBottom = _boxCollider2D.bounds.min.y;
-        float offset = .1f;
+        float offset = 0.1f;
         Vector2 rayOrigin = new Vector2(transform.position.x, colliderBottom - offset);
 
-        return Physics2D.Raycast(rayOrigin, Vector2.down, .7f, JumpableObjects);
+
+        return _canJump = Physics2D.Raycast(rayOrigin, Vector2.down, 0.7f, JumpableObjects);
     }
 
     private void Update()
     {
-        if (!IsOnSurface())
+        if (IsOnSurface())
         {
-            PlayerEnteredAir?.Invoke();
+            _lastGroundedTime = Time.time;
+            PlayerGrounded?.Invoke();
         }
         else
         {
-            PlayerGrounded?.Invoke();
+            if (Time.time - _lastGroundedTime <= _coyoteTime)
+            {
+                _canJump = true;
+                PlayerEnteredAir?.Invoke();
+            }
+            else
+            {
+                _canJump = false;
+            }
         }
     }
 
