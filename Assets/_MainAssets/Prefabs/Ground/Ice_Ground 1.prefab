@@ -11,7 +11,8 @@ GameObject:
   - component: {fileID: 7419439075505537086}
   - component: {fileID: 8153678817866999571}
   - component: {fileID: 1196305460374465447}
-  m_Layer: 3
+  - component: {fileID: 7666264983662032910}
+  m_Layer: 9
   m_Name: Ice_Ground 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -115,7 +116,7 @@ BoxCollider2D:
     serializedVersion: 2
     m_Bits: 4294967295
   m_IsTrigger: 0
-  m_UsedByEffector: 0
+  m_UsedByEffector: 1
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
@@ -130,3 +131,21 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 15.61, y: 3.97}
   m_EdgeRadius: 0
+--- !u!252 &7666264983662032910
+SurfaceEffector2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4537905301034451281}
+  m_Enabled: 1
+  m_UseColliderMask: 1
+  m_ColliderMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_Speed: 10
+  m_SpeedVariation: 0
+  m_ForceScale: 0.1
+  m_UseContactForce: 0
+  m_UseFriction: 1
+  m_UseBounce: 1

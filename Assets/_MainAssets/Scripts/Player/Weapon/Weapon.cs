@@ -36,11 +36,16 @@ public class Weapon : MonoBehaviour
     [SerializeField] private SpriteRenderer _spriteRenderer;
     [SerializeField] private Coroutine _fadeOutCoroutine;
 
+    private BoxCollider2D _boxCollider2D;
+
     private void Awake()
     {
-        ValidateComponents();
-        CurrentAmountOfBullets = MaxAmountOfBullets;
+        _boxCollider2D = GetComponentInChildren<BoxCollider2D>();
 
+        ValidateComponents();
+        DisableBox2DCollider();
+
+        CurrentAmountOfBullets = MaxAmountOfBullets;
         NoMoreBullets += FadeOutSprite;
     }
 
@@ -98,5 +103,14 @@ public class Weapon : MonoBehaviour
             StopCoroutine(_fadeOutCoroutine);
 
         _fadeOutCoroutine = StartCoroutine(FadeOut(2f));
+    }
+
+    public void DisableBox2DCollider()
+    {
+        _boxCollider2D.enabled = false;
+    }
+    public void EnableBox2DCollider()
+    {
+        _boxCollider2D.enabled = true;
     }
 }

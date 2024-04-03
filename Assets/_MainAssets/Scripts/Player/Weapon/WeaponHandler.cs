@@ -168,6 +168,7 @@ public class WeaponHandler : MonoBehaviour
         ResetWeaponGameObjectTransforms(weaponGameObject);
 
         _currentWeapon = GetWeaponComponentFromGameObject(weaponGameObject);
+        _currentWeapon.EnableBox2DCollider();
 
         void ResetWeaponGameObjectTransforms(GameObject weaponGO)
         {
@@ -188,6 +189,8 @@ public class WeaponHandler : MonoBehaviour
         weaponGameObject.GetComponent<PolygonCollider2D>().enabled = true;
 
         weaponGameObject.GetComponent<Rigidbody2D>().isKinematic = false;
+
+        _currentWeapon.DisableBox2DCollider();
 
         weapon = null;
         weaponGameObject = null;

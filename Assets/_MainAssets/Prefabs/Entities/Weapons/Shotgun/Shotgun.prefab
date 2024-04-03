@@ -15,7 +15,6 @@ GameObject:
   - component: {fileID: 8887171492125732006}
   - component: {fileID: 4508245397938794503}
   - component: {fileID: 4508928381055368284}
-  - component: {fileID: 4781597142241890519}
   m_Layer: 0
   m_Name: Shotgun
   m_TagString: Item
@@ -204,7 +203,7 @@ AudioSource:
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 1
-  MinDistance: 1
+  MinDistance: 0.29257345
   MaxDistance: 500
   Pan2D: 0
   rolloffMode: 0
@@ -294,51 +293,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _shootSound: {fileID: 8300000, guid: 2711cca9c50ffcc4f93fdd4d74ef65a3, type: 3}
   _noAmmoSound: {fileID: 8300000, guid: 47556db4c22dbe94cb913597ca14d963, type: 3}
---- !u!61 &4781597142241890519
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2720595561394696351}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 3.3482807, y: 0.66297066}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 4.4652753, y: 0.8105798}
-  m_EdgeRadius: 0
 --- !u!1 &6809219076430118080
 GameObject:
   m_ObjectHideFlags: 0
@@ -349,6 +303,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1114493763385488312}
   - component: {fileID: 7027715072653188435}
+  - component: {fileID: 6960189827082034762}
+  - component: {fileID: 7231386973226723363}
   m_Layer: 0
   m_Name: GunSprite
   m_TagString: Untagged
@@ -423,6 +379,63 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &6960189827082034762
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6809219076430118080}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca157a8d00c730446b1c783c28740bad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!61 &7231386973226723363
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6809219076430118080}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 2.726993, y: 0.14581001}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.17612045, y: 0.43715087}
+    oldSize: {x: 8.06, y: 2.32}
+    newSize: {x: 2.38, y: 1.62}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 8.293048, y: 2.32}
+  m_EdgeRadius: 0
 --- !u!1 &8985939516351198076
 GameObject:
   m_ObjectHideFlags: 0

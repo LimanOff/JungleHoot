@@ -1200,7 +1200,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6507872915296673375, guid: ac41361234a35c6408f39eace8734918, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -61.790363
+      value: -40.25
       objectReference: {fileID: 0}
     - target: {fileID: 6507872915296673375, guid: ac41361234a35c6408f39eace8734918, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1538,6 +1538,10 @@ PrefabInstance:
     - target: {fileID: 4537905301034451281, guid: f94d6daf093f38747821cbf9a198558f, type: 3}
       propertyPath: m_Name
       value: Ice_Ground
+      objectReference: {fileID: 0}
+    - target: {fileID: 4537905301034451281, guid: f94d6daf093f38747821cbf9a198558f, type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 7419439075505537086, guid: f94d6daf093f38747821cbf9a198558f, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2194,6 +2198,10 @@ PrefabInstance:
     - target: {fileID: 7419439075505537086, guid: f94d6daf093f38747821cbf9a198558f, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 43.97
+      objectReference: {fileID: 0}
+    - target: {fileID: 7666264983662032910, guid: f94d6daf093f38747821cbf9a198558f, type: 3}
+      propertyPath: m_Speed
+      value: -10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
