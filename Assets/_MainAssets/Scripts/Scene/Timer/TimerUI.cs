@@ -16,6 +16,7 @@ public class TimerUI : MonoBehaviour
 
     private void Awake()
     {
+        UpdateText();
         _timer.TimeTick += UpdateText;
     }
     private void OnDestroy()
