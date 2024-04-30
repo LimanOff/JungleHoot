@@ -8,11 +8,13 @@ public class LoaderNewLevels
 
     public void LoadNewLevel()
     {
-        _randomLvl = Random.Range(1, 6);
-        if (_randomLvl == _lastLvl)
+        int currentLevelIndex = SceneManager.GetActiveScene().buildIndex;
+
+        do
         {
             _randomLvl = Random.Range(1, 6);
-        }
+        } while (_randomLvl == currentLevelIndex || _randomLvl == _lastLvl);
+
         _lastLvl = _randomLvl;
 
         SceneManager.LoadScene(_randomLvl);
